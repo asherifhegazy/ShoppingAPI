@@ -16,7 +16,7 @@ namespace OnlineShopping.Repositories.Repositories
             Context = context;
         }
 
-        public virtual bool? Add(TEntity entity)
+        public virtual bool Add(TEntity entity)
         {
             if (entity != null)
             {
@@ -38,7 +38,7 @@ namespace OnlineShopping.Repositories.Repositories
             return Context.Set<TEntity>().Find(id);
         }
 
-        public virtual bool? Remove(TEntity entity)
+        public virtual bool Remove(TEntity entity)
         {
             if (entity != null)
             {

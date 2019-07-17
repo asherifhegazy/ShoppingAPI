@@ -10,8 +10,8 @@ namespace OnlineShopping.Repositories.Interfaces
 
         TEntity GetByID(int id);
 
-        bool? Add(TEntity entity);
+        bool Add(TEntity entity);
 
-        bool? Remove(TEntity entity);
+        bool Remove(TEntity entity);
     }
 }
