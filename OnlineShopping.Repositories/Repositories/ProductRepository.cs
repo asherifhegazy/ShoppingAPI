@@ -25,7 +25,7 @@ namespace OnlineShopping.Repositories.Repositories
         public IEnumerable<Product> GetProductsPaging(int pageIndex, int pageSize = 10)
         {
             return OnlineShoppingContext.Product
-                .Skip((pageIndex - 1) * pageSize) 
+                .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
         }
 

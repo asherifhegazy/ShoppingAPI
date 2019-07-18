@@ -10,11 +10,13 @@ namespace OnlineShopping.Services.BusinessUnity
     {
         public IUserService UserService { get; set; }
         public IProductService ProductService { get; set; }
+        public IProductImagesService ProductImagesService { get; set; }
 
-        public BusinessUnity(IUserService userService, IProductService productService)
+        public BusinessUnity(IUserService userService, IProductService productService, IProductImagesService productImagesService)
         {
             UserService = userService;
             ProductService = productService;
+            ProductImagesService = productImagesService;
         }
     }
 }

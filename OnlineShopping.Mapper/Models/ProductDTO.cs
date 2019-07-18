@@ -11,6 +11,6 @@ namespace OnlineShopping.Mapper.Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public DateTime? CreatedDate { get; set; }
-
+        public IEnumerable<string> Images { get; set; }
     }
 }

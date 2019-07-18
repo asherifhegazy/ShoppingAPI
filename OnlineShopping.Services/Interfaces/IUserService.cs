@@ -11,7 +11,7 @@ namespace OnlineShopping.Services.Interfaces
 
         UserDTO GetUserByID(int id);
 
-        bool AddUser(UserDTO user);
+        bool AddUser(UserDTO userDTO);
 
         bool RemoveUser(int id);
 

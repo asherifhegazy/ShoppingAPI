@@ -11,7 +11,7 @@ namespace OnlineShopping.Services.Interfaces
 
         ProductDTO GetProductByID(int id);
 
-        bool AddProduct(ProductDTO product);
+        bool AddProduct(ProductDTO productDTO);
 
         bool RemoveProduct(int id);
 
