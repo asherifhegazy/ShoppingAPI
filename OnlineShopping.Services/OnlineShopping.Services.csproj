@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineShopping.Data.Domain\OnlineShopping.Data.Domain.csproj" />
     <ProjectReference Include="..\OnlineShopping.Data\OnlineShopping.Data.csproj" />
+    <ProjectReference Include="..\OnlineShopping.Mapper\OnlineShopping.Mapper.csproj" />
     <ProjectReference Include="..\OnlineShopping.Repositories\OnlineShopping.Repositories.csproj" />
   </ItemGroup>
 

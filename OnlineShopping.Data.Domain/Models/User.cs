@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OnlineShopping.Data.Models
+namespace OnlineShopping.Data.Domain.Models
 {
     public partial class User
     {

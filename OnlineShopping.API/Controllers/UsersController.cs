@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopping.Data.Models;
+using OnlineShopping.Mapper.Models;
 using OnlineShopping.Services.BusinessUnity;
 
 namespace OnlineShopping.API.Controllers
@@ -22,7 +22,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserDTO> GetAllUsers()
         {
             var users = _businessUnity.UserService.GetAllUsers();
             return users;
@@ -30,7 +30,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public User GetUser(int id)
+        public UserDTO GetUser(int id)
         {
             var user = _businessUnity.UserService.GetUserByID(id);
             return user;
@@ -38,7 +38,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{username}")]
-        public User GetUserByUsername(string username)
+        public UserDTO GetUserByUsername(string username)
         {
             var user = _businessUnity.UserService.GetUserByUsername(username);
             return user;
@@ -46,7 +46,7 @@ namespace OnlineShopping.API.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public bool AddUser([FromBody] User user)
+        public bool AddUser([FromBody] UserDTO user)
         {
             var isAdded = _businessUnity.UserService.AddUser(user);
             return isAdded;

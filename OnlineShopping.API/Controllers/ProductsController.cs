@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopping.Data.Models;
+using OnlineShopping.Mapper.Models;
 using OnlineShopping.Services.BusinessUnity;
 
 namespace OnlineShopping.API.Controllers
@@ -22,7 +22,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<ProductDTO> GetAllProducts()
         {
             var products = _businessUnity.ProductService.GetAllProducts();
             return products;
@@ -30,7 +30,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Products/1/5
         [HttpGet("{pageIndex}/{pageSize}")]
-        public IEnumerable<Product> GetProductsPaging(int pageIndex, int pageSize)
+        public IEnumerable<ProductDTO> GetProductsPaging(int pageIndex, int pageSize)
         {
             var products = _businessUnity.ProductService.GetProductsPaging(pageIndex,pageSize);
             return products;
@@ -38,7 +38,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Products/filter/200/5000
         [HttpGet("filter/{minPrice}/{maxPrice}")]
-        public IEnumerable<Product> GetProductsFilteredByPriceRange(int minPrice, int maxPrice)
+        public IEnumerable<ProductDTO> GetProductsFilteredByPriceRange(int minPrice, int maxPrice)
         {
             var products = _businessUnity.ProductService.FilterProductsByPriceRange(minPrice, maxPrice);
             return products;
@@ -46,7 +46,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Products/filter/200/5000/1/5
         [HttpGet("filter/{minPrice}/{maxPrice}/{pageIndex}/{pageSize}")]
-        public IEnumerable<Product> GetProductsFilteredByPriceRangePaging(int minPrice, int maxPrice, int pageIndex, int pageSize)
+        public IEnumerable<ProductDTO> GetProductsFilteredByPriceRangePaging(int minPrice, int maxPrice, int pageIndex, int pageSize)
         {
             var products = _businessUnity.ProductService.FilterProductsByPriceRangePaging(minPrice, maxPrice, pageIndex, pageSize);
             return products;
@@ -54,7 +54,7 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public Product GetProduct(int id)
+        public ProductDTO GetProduct(int id)
         {
             var product = _businessUnity.ProductService.GetProductByID(id);
             return product;
@@ -62,7 +62,7 @@ namespace OnlineShopping.API.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public bool AddProduct([FromBody] Product product)
+        public bool AddProduct([FromBody] ProductDTO product)
         {
             var isAdded = _businessUnity.ProductService.AddProduct(product);
             return isAdded;

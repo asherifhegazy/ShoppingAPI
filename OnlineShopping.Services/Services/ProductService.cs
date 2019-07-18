@@ -1,8 +1,10 @@
-﻿using OnlineShopping.Data.Models;
+﻿using OnlineShopping.Mapper;
+using OnlineShopping.Mapper.Models;
 using OnlineShopping.Repositories.UnitOfWork;
 using OnlineShopping.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OnlineShopping.Services.Services
@@ -16,10 +18,11 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddProduct(Product product)
+        public bool AddProduct(ProductDTO productDTO)
         {
-            if (product != null)
+            if (productDTO != null)
             {
+                var product = SMapper.Map(productDTO);
                 var result = _unitOfWork.ProductRepository.Add(product);
                 _unitOfWork.SaveChanges();
 
@@ -29,39 +32,51 @@ namespace OnlineShopping.Services.Services
             return false;
         }
 
-        public IEnumerable<Product> FilterProductsByPriceRange(decimal minPrice, decimal maxPrice)
+        public IEnumerable<ProductDTO> FilterProductsByPriceRange(decimal minPrice, decimal maxPrice)
         {
             var result = _unitOfWork.ProductRepository.FilterProductsByPriceRange(minPrice, maxPrice);
-            return result;
+            var productsDTO = SMapper.Map(result.ToList());
+
+            return productsDTO;
         }
 
-        public IEnumerable<Product> FilterProductsByPriceRangePaging(decimal minPrice, decimal maxPrice, int pageIndex, int pageSize = 10)
+        public IEnumerable<ProductDTO> FilterProductsByPriceRangePaging(decimal minPrice, decimal maxPrice, int pageIndex, int pageSize = 10)
         {
             var result = _unitOfWork.ProductRepository.FilterProductsByPriceRangePaging(minPrice, maxPrice, pageIndex, pageSize);
-            return result;
+            var productsDTO = SMapper.Map(result.ToList());
+
+            return productsDTO;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<ProductDTO> GetAllProducts()
         {
             var result = _unitOfWork.ProductRepository.GetAll();
-            return result;
+            var productsDTO = SMapper.Map(result.ToList());
+
+            return productsDTO;
         }
 
-        public Product GetProductByID(int id)
+        public ProductDTO GetProductByID(int id)
         {
             var result = _unitOfWork.ProductRepository.GetByID(id);
-            return result;
+            var productDTO = SMapper.Map(result);
+
+            return productDTO;
         }
 
-        public IEnumerable<Product> GetProductsPaging(int pageIndex, int pageSize = 10)
+        public IEnumerable<ProductDTO> GetProductsPaging(int pageIndex, int pageSize = 10)
         {
             var result = _unitOfWork.ProductRepository.GetProductsPaging(pageIndex, pageSize);
-            return result;
+            var productsDTO = SMapper.Map(result.ToList());
+
+            return productsDTO;
         }
 
         public bool RemoveProduct(int id)
         {
-            var product = GetProductByID(id);
+            var productDTO = GetProductByID(id);
+            var product = SMapper.Map(productDTO);
+
             if (product != null)
             {
                 var result = _unitOfWork.ProductRepository.Remove(product);

@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.API", "OnlineShopping.API\OnlineShopping.API.csproj", "{B091381A-53A1-4C48-87F3-65660921E530}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopping.API", "OnlineShopping.API\OnlineShopping.API.csproj", "{B091381A-53A1-4C48-87F3-65660921E530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.Data", "OnlineShopping.Data\OnlineShopping.Data.csproj", "{8985CE20-6806-40C1-B521-40B369512AA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopping.Data", "OnlineShopping.Data\OnlineShopping.Data.csproj", "{8985CE20-6806-40C1-B521-40B369512AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.Repositories", "OnlineShopping.Repositories\OnlineShopping.Repositories.csproj", "{E7F97BEE-5C65-488B-B87C-B619E05FDD12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopping.Repositories", "OnlineShopping.Repositories\OnlineShopping.Repositories.csproj", "{E7F97BEE-5C65-488B-B87C-B619E05FDD12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.Services", "OnlineShopping.Services\OnlineShopping.Services.csproj", "{4C18396A-5EEA-448C-9316-A83379E96C6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopping.Services", "OnlineShopping.Services\OnlineShopping.Services.csproj", "{4C18396A-5EEA-448C-9316-A83379E96C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.Data.Domain", "OnlineShopping.Data.Domain\OnlineShopping.Data.Domain.csproj", "{B25DF095-A477-47D0-B996-D7DE686A93CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.Mapper", "OnlineShopping.Mapper\OnlineShopping.Mapper.csproj", "{0BCAB993-91F9-422A-BEAD-F89821469420}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{4C18396A-5EEA-448C-9316-A83379E96C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C18396A-5EEA-448C-9316-A83379E96C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C18396A-5EEA-448C-9316-A83379E96C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B25DF095-A477-47D0-B996-D7DE686A93CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B25DF095-A477-47D0-B996-D7DE686A93CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B25DF095-A477-47D0-B996-D7DE686A93CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B25DF095-A477-47D0-B996-D7DE686A93CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BCAB993-91F9-422A-BEAD-F89821469420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BCAB993-91F9-422A-BEAD-F89821469420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BCAB993-91F9-422A-BEAD-F89821469420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BCAB993-91F9-422A-BEAD-F89821469420}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

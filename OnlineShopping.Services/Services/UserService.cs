@@ -1,4 +1,5 @@
-﻿using OnlineShopping.Data.Models;
+﻿using OnlineShopping.Mapper;
+using OnlineShopping.Mapper.Models;
 using OnlineShopping.Repositories.UnitOfWork;
 using OnlineShopping.Services.Interfaces;
 using System;
@@ -17,11 +18,11 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddUser(User user)
+        public bool AddUser(UserDTO userDTO)
         {
-            if (user != null)
+            if (userDTO != null)
             {
-
+                var user = SMapper.Map(userDTO);
                 var result = _unitOfWork.UserRepository.Add(user);
                 _unitOfWork.SaveChanges();
 
@@ -31,27 +32,35 @@ namespace OnlineShopping.Services.Services
             return false;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserDTO> GetAllUsers()
         {
             var result = _unitOfWork.UserRepository.GetAll();
-            return result;
+            var usersDTO = SMapper.Map(result.ToList());
+            
+            return usersDTO;
         }
 
-        public User GetUserByID(int id)
+        public UserDTO GetUserByID(int id)
         {
             var result = _unitOfWork.UserRepository.GetByID(id);
-            return result;
+            var userDTO = SMapper.Map(result);
+
+            return userDTO;
         }
 
-        public User GetUserByUsername(string username)
+        public UserDTO GetUserByUsername(string username)
         {
             var result = _unitOfWork.UserRepository.GetUserByUsername(username);
-            return result;
+            var userDTO = SMapper.Map(result);
+
+            return userDTO;
         }
 
         public bool RemoveUser(int id)
         {
-            var user = GetUserByID(id);
+            var userDTO = GetUserByID(id);
+            var user = SMapper.Map(userDTO);
+
             if (user != null)
             {
                 var result = _unitOfWork.UserRepository.Remove(user);

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using OnlineShopping.Data.Models;
+using OnlineShopping.Data.Domain.Models;
 
 namespace OnlineShopping.Data
 {
