@@ -8,5 +8,7 @@ namespace OnlineShopping.Services.BusinessUnity
     public interface IBusinessUnity
     {
         IUserService UserService { get; set; }
+
+        IProductService ProductService { get; set; }
     }
 }

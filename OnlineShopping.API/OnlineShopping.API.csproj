@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineShopping.Data\OnlineShopping.Data.csproj" />
+    <ProjectReference Include="..\OnlineShopping.Repositories\OnlineShopping.Repositories.csproj" />
     <ProjectReference Include="..\OnlineShopping.Services\OnlineShopping.Services.csproj" />
   </ItemGroup>
 

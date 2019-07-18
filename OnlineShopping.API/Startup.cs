@@ -11,6 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OnlineShopping.Repositories.Interfaces;
+using OnlineShopping.Repositories.Repositories;
+using OnlineShopping.Repositories.UnitOfWork;
 using OnlineShopping.Services.BusinessUnity;
 using OnlineShopping.Services.Interfaces;
 using OnlineShopping.Services.Services;
@@ -31,8 +34,19 @@ namespace OnlineShopping.API
         {
             services.AddDbContext<Data.OnlineShoppingContext>(o => o.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;",                builder => builder.MigrationsAssembly(typeof(Startup).Assembly.FullName)));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductImagesRepository, ProductImagesRepository>();
+            services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+            services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBusinessUnity, BusinessUnity>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

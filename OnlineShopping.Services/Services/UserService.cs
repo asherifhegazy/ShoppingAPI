@@ -10,17 +10,22 @@ namespace OnlineShopping.Services.Services
 {
     public class UserService : IUserService
     {
+        private IUnitOfWork _unitOfWork;
+
+        public UserService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public bool AddUser(User user)
         {
-            if(user != null)
+            if (user != null)
             {
-                using(var UnitOfWork = new UnitOfWork())
-                {
-                    var result = UnitOfWork.UserRepository.Add(user);
-                    UnitOfWork.SaveChanges();
 
-                    return result;
-                }
+                var result = _unitOfWork.UserRepository.Add(user);
+                _unitOfWork.SaveChanges();
+
+                return result;
             }
 
             return false;
@@ -28,43 +33,31 @@ namespace OnlineShopping.Services.Services
 
         public IEnumerable<User> GetAllUsers()
         {
-            using (var UnitOfWork = new UnitOfWork())
-            {
-                var result = UnitOfWork.UserRepository.GetAll().ToList();
-                return result;
-            }
+            var result = _unitOfWork.UserRepository.GetAll();
+            return result;
         }
 
         public User GetUserByID(int id)
         {
-            using (var UnitOfWork = new UnitOfWork())
-            {
-                var result = UnitOfWork.UserRepository.GetByID(id);
-                return result;
-            }
+            var result = _unitOfWork.UserRepository.GetByID(id);
+            return result;
         }
 
         public User GetUserByUsername(string username)
         {
-            using (var UnitOfWork = new UnitOfWork())
-            {
-                var result = UnitOfWork.UserRepository.GetUserByUsername(username);
-                return result;
-            }
+            var result = _unitOfWork.UserRepository.GetUserByUsername(username);
+            return result;
         }
 
         public bool RemoveUser(int id)
         {
             var user = GetUserByID(id);
-            if(user != null)
+            if (user != null)
             {
-                using (var UnitOfWork = new UnitOfWork())
-                {
-                    var result = UnitOfWork.UserRepository.Remove(user);
-                    UnitOfWork.SaveChanges();
+                var result = _unitOfWork.UserRepository.Remove(user);
+                _unitOfWork.SaveChanges();
 
-                    return result;
-                }
+                return result;
             }
 
             return false;

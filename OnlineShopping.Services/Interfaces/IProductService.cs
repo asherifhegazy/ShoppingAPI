@@ -3,10 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OnlineShopping.Repositories.Interfaces
+namespace OnlineShopping.Services.Interfaces
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductService
     {
+        IEnumerable<Product> GetAllProducts();
+
+        Product GetProductByID(int id);
+
+        bool AddProduct(Product product);
+
+        bool RemoveProduct(int id);
+
         IEnumerable<Product> GetProductsPaging(int pageIndex, int pageSize = 10);
 
         IEnumerable<Product> FilterProductsByPriceRange(decimal minPrice, decimal maxPrice);

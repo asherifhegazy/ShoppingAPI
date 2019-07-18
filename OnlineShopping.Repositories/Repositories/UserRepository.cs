@@ -24,7 +24,7 @@ namespace OnlineShopping.Repositories.Repositories
 
         public User GetUserByUsername(string username)
         {
-            var user = OnlineShoppingContext.Users.SingleOrDefault(u => u.Username == username);
+            var user = OnlineShoppingContext.User.SingleOrDefault(u => u.Username == username);
             return user;
         }
 
@@ -45,7 +45,7 @@ namespace OnlineShopping.Repositories.Repositories
 
         private bool IsUserExists(string username)
         {
-            var result = OnlineShoppingContext.Users.Any(u => u.Username == username);
+            var result = OnlineShoppingContext.User.Any(u => u.Username == username);
             return result;
         }
 

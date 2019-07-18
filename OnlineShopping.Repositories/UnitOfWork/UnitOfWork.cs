@@ -9,16 +9,19 @@ namespace OnlineShopping.Repositories.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        public OnlineShoppingContext Context { get; private set; } = new OnlineShoppingContext();
+        public OnlineShoppingContext Context { get; private set; }
 
-        public UnitOfWork()
+        public UnitOfWork(OnlineShoppingContext context, IUserRepository userRepository, IOrderRepository orderRepository
+            , IProductRepository productRepository, IProductImagesRepository productImagesRepository
+            , ICartItemsRepository cartItemsRepository, IOrderItemsRepository orderItemsRepository)
         {
-            UserRepository = new UserRepository(Context);
-            OrderRepository = new OrderRepository(Context);
-            ProductRepository = new ProductRepository(Context);
-            ProductImagesRepository = new ProductImagesRepository(Context);
-            CartItemsRepository = new CartItemsRepository(Context);
-            OrderItemsRepository= new OrderItemsRepository(Context);
+            Context = context;
+            UserRepository = userRepository;
+            OrderRepository = orderRepository;
+            ProductRepository = productRepository;
+            ProductImagesRepository = productImagesRepository;
+            CartItemsRepository = cartItemsRepository;
+            OrderItemsRepository= orderItemsRepository;
         }
 
         public IUserRepository UserRepository { get; set; }

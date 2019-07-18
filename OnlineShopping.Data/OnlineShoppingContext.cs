@@ -7,30 +7,26 @@ namespace OnlineShopping.Data
 {
     public partial class OnlineShoppingContext : DbContext
     {
-        public OnlineShoppingContext()
-        {
-        }
-
         public OnlineShoppingContext(DbContextOptions<OnlineShoppingContext> options)
             : base(options)
         {
         }
 
         public virtual DbSet<CartItems> CartItems { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItems> OrderItems { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductImages> ProductImages { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;");
-            }
-        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
