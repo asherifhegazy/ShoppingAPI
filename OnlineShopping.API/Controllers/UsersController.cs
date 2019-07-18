@@ -13,11 +13,18 @@ namespace OnlineShopping.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IBusinessUnity _businessUnity;
+
+        public UsersController(IBusinessUnity businessUnity)
+        {
+            _businessUnity = businessUnity;
+        }
+
         // GET: api/Users
         [HttpGet]
         public IEnumerable<User> GetAllUsers()
         {
-            var users = BusinessUnity.UserService.GetAllUsers();
+            var users = _businessUnity.UserService.GetAllUsers();
             return users;
         }
 
@@ -25,7 +32,7 @@ namespace OnlineShopping.API.Controllers
         [HttpGet("{id}")]
         public User GetUser(int id)
         {
-            var user = BusinessUnity.UserService.GetUserByID(id);
+            var user = _businessUnity.UserService.GetUserByID(id);
             return user;
         }
 
@@ -33,7 +40,7 @@ namespace OnlineShopping.API.Controllers
         [HttpGet("{username}")]
         public User GetUserByUsername(string username)
         {
-            var user = BusinessUnity.UserService.GetUserByUsername(username);
+            var user = _businessUnity.UserService.GetUserByUsername(username);
             return user;
         }
 
@@ -41,7 +48,7 @@ namespace OnlineShopping.API.Controllers
         [HttpPost]
         public bool AddUser([FromBody] User user)
         {
-            var isAdded = BusinessUnity.UserService.AddUser(user);
+            var isAdded = _businessUnity.UserService.AddUser(user);
             return isAdded;
         }
         
@@ -49,7 +56,7 @@ namespace OnlineShopping.API.Controllers
         [HttpDelete("{id}")]
         public bool RemoveUser(int id)
         {
-            var isDeleted = BusinessUnity.UserService.RemoveUser(id);
+            var isDeleted = _businessUnity.UserService.RemoveUser(id);
             return isDeleted;
         }
     }
