@@ -29,6 +29,14 @@ namespace OnlineShopping.API.Controllers
             return user;
         }
 
+        // GET: api/Users/5
+        [HttpGet("{username}")]
+        public User GetUserByUsername(string username)
+        {
+            var user = BusinessUnity.UserService.GetUserByUsername(username);
+            return user;
+        }
+
         // POST: api/Users
         [HttpPost]
         public bool AddUser([FromBody] User user)

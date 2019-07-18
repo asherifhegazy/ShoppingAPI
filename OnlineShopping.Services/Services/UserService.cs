@@ -44,6 +44,15 @@ namespace OnlineShopping.Services.Services
             }
         }
 
+        public User GetUserByUsername(string username)
+        {
+            using (var UnitOfWork = new UnitOfWork())
+            {
+                var result = UnitOfWork.UserRepository.GetUserByUsername(username);
+                return result;
+            }
+        }
+
         public bool RemoveUser(int id)
         {
             var user = GetUserByID(id);

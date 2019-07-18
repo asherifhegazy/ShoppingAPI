@@ -3,6 +3,7 @@ using OnlineShopping.Data.Models;
 using OnlineShopping.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OnlineShopping.Repositories.Repositories
@@ -19,6 +20,12 @@ namespace OnlineShopping.Repositories.Repositories
 
         public UserRepository(OnlineShoppingContext context): base(context)
         {
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            var user = OnlineShoppingContext.User.SingleOrDefault(u => u.Username == username);
+            return user;
         }
     }
 }

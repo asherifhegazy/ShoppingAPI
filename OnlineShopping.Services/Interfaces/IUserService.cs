@@ -14,5 +14,7 @@ namespace OnlineShopping.Services.Interfaces
         bool AddUser(User user);
 
         bool RemoveUser(int id);
+
+        User GetUserByUsername(string username);
     }
 }

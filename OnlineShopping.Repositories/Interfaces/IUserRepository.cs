@@ -7,5 +7,6 @@ namespace OnlineShopping.Repositories.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
+        User GetUserByUsername(string username);
     }
 }
