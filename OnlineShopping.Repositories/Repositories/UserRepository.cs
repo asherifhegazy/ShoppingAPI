@@ -27,5 +27,26 @@ namespace OnlineShopping.Repositories.Repositories
             var user = OnlineShoppingContext.User.SingleOrDefault(u => u.Username == username);
             return user;
         }
+
+        public override bool Add(User entity)
+        {
+            if (entity != null)
+            {
+                if (!IsUserExists(entity.Username))
+                {
+                    return base.Add(entity);
+                }
+
+                return false;
+            }
+
+            return false;
+        }
+
+        private bool IsUserExists(string username)
+        {
+            var result = OnlineShoppingContext.User.Any(u => u.Username == username);
+            return result;
+        }
     }
 }
