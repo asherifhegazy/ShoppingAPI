@@ -48,6 +48,7 @@ namespace OnlineShopping.API
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductImagesService, ProductImagesService>();
+            services.AddScoped<ICartItemsService, CartItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

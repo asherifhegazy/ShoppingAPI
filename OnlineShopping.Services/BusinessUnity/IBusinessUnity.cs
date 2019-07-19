@@ -12,5 +12,7 @@ namespace OnlineShopping.Services.BusinessUnity
         IProductService ProductService { get; set; }
 
         IProductImagesService ProductImagesService { get; set; }
+
+        ICartItemsService CartItemsService { get; set; }
     }
 }
