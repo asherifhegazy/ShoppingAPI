@@ -19,12 +19,42 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
+        private bool IsCartItemExists(int uid, int pid)
+        {
+            var cartItem = GetCartItemByUserAndProductIDs(uid, pid);
+            if (cartItem != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private CartItem GetCartItemByUserAndProductIDs(int uid, int pid)
+        {
+            return _unitOfWork.CartItemRepository.GetCartItemByUserAndProductIDs(uid, pid);
+        }
+
         public bool AddCartItem(CartItemDTO cartItemDTO)
         {
             if (cartItemDTO != null)
             {
                 var cartItem = SMapper.Map(cartItemDTO);
-                var result = _unitOfWork.CartItemRepository.Add(cartItem);
+
+                bool result = false;
+
+                if (!IsCartItemExists(cartItemDTO.UserId, cartItemDTO.ProductId))
+                {
+                    result = _unitOfWork.CartItemRepository.Add(cartItem);
+                }
+                else
+                {
+                    cartItem = GetCartItemByUserAndProductIDs(cartItemDTO.UserId, cartItemDTO.ProductId);
+                    cartItem.Quantity = cartItemDTO.Quantity + cartItem.Quantity;
+
+                    result = true;
+                }
+
                 _unitOfWork.SaveChanges();
 
                 return result;
@@ -49,13 +79,13 @@ namespace OnlineShopping.Services.Services
             return cartItemsDTO;
         }
 
-        public bool RemoveCartItem(CartItemDTO cartItemDTO)
+        public bool Remove(CartItemDTO cartItemDTO)
         {
-            var cartItems = _unitOfWork.CartItemRepository.GetCartItemByUserAndProductIDs(cartItemDTO.UserId, cartItemDTO.ProductId);
+            var cartItem = _unitOfWork.CartItemRepository.GetCartItemByUserAndProductIDs(cartItemDTO.UserId, cartItemDTO.ProductId);
 
-            if(cartItems != null)
+            if(cartItem != null)
             {
-                var result = _unitOfWork.CartItemRepository.Remove(cartItems);
+                var result = RemoveCartItem(cartItem);
                 _unitOfWork.SaveChanges();
 
                 return result;
@@ -66,18 +96,36 @@ namespace OnlineShopping.Services.Services
 
         public bool EmptyCartItemsByUserID(int uid)
         {
-            var cartItemsDTO = GetAllCartItemsByUserID(uid);
-            var cartItems = SMapper.Map(cartItemsDTO.ToList());
+            var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid);
 
             if(cartItems != null)
             {
-                var result = _unitOfWork.CartItemRepository.EmptyCartItems(cartItems);
+                List<bool> results = new List<bool>(); 
+                foreach (var item in cartItems)
+                {
+                    var result = RemoveCartItem(item);
+                    results.Add(result);
+                }
+
                 _unitOfWork.SaveChanges();
+
+                return results.Any(r => r.Equals(true));
+            }
+
+            return false;
+        }
+
+        private bool RemoveCartItem(CartItem cartItem)
+        {
+            if (cartItem != null)
+            {
+                var result = _unitOfWork.CartItemRepository.Remove(cartItem);
 
                 return result;
             }
 
             return false;
         }
+
     }
 }

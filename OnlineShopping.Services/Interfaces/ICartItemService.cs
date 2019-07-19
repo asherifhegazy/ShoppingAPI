@@ -13,7 +13,7 @@ namespace OnlineShopping.Services.Interfaces
 
         bool AddCartItem(CartItemDTO cartItemDTO);
 
-        bool RemoveCartItem(CartItemDTO cartItemDTO);
+        bool Remove(CartItemDTO cartItemDTO);
 
         bool EmptyCartItemsByUserID(int uid);
     }

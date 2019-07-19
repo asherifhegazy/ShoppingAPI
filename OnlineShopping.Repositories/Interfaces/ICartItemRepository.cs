@@ -13,6 +13,6 @@ namespace OnlineShopping.Repositories.Interfaces
 
         CartItem GetCartItemByUserAndProductIDs(int uid, int pid);
 
-        bool EmptyCartItems(IEnumerable<CartItem> cartItemList);
+        //bool EmptyCartItems(IEnumerable<CartItem> cartItemList);
     }
 }

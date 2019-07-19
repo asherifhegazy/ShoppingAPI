@@ -45,7 +45,7 @@ namespace OnlineShopping.API.Controllers
         [HttpDelete]
         public bool RemoveCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var result = _businessUnity.CartItemService.RemoveCartItem(cartItemDTO);
+            var result = _businessUnity.CartItemService.Remove(cartItemDTO);
             return result;
         }
 

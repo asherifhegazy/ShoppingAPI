@@ -42,17 +42,17 @@ namespace OnlineShopping.Repositories.Repositories
                 .SingleOrDefault(ci => ci.UserId == uid && ci.ProductId == pid);
         }
 
-        public bool EmptyCartItems(IEnumerable<CartItem> cartItems)
-        {
-            if(cartItems != null)
-            {
-                OnlineShoppingContext.RemoveRange(cartItems);
+        //public bool EmptyCartItems(IEnumerable<CartItem> cartItems)
+        //{
+        //    if(cartItems != null)
+        //    {
+        //        OnlineShoppingContext.RemoveRange(cartItems);
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
     }
 }
