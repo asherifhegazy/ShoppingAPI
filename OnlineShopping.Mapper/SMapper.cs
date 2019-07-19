@@ -167,16 +167,16 @@ namespace OnlineShopping.Mapper
 
         #endregion
 
-        #region ProductImages
+        #region ProductImage
 
-        public static ProductImages Map(ProductImagesDTO from)
+        public static ProductImage Map(ProductImageDTO from)
         {
             try
             {
                 if (from == null)
                     return null;
 
-                var to = new ProductImages
+                var to = new ProductImage
                 {
                     Id = from.Id,
                     ProductId = from.ProductId,
@@ -193,14 +193,14 @@ namespace OnlineShopping.Mapper
             }
         }
 
-        public static ProductImagesDTO Map(ProductImages from)
+        public static ProductImageDTO Map(ProductImage from)
         {
             try
             {
                 if (from == null)
                     return null;
 
-                var to = new ProductImagesDTO
+                var to = new ProductImageDTO
                 {
                     Id = from.Id,
                     ProductId = from.ProductId,
@@ -219,16 +219,16 @@ namespace OnlineShopping.Mapper
 
         #endregion
 
-        #region CartItems
+        #region CartItem
 
-        public static CartItems Map(CartItemsDTO from)
+        public static CartItem Map(CartItemDTO from)
         {
             try
             {
                 if (from == null)
                     return null;
 
-                var to = new CartItems
+                var to = new CartItem
                 {
                     ProductId = from.ProductId,
                     UserId = from.UserId,
@@ -245,14 +245,14 @@ namespace OnlineShopping.Mapper
             }
         }
 
-        public static CartItemsDTO Map(CartItems from)
+        public static CartItemDTO Map(CartItem from)
         {
             try
             {
                 if (from == null)
                     return null;
 
-                var to = new CartItemsDTO
+                var to = new CartItemDTO
                 {
                     ProductId = from.ProductId,
                     UserId = from.UserId,
@@ -271,16 +271,16 @@ namespace OnlineShopping.Mapper
 
         #endregion
 
-        #region OrderItems
+        #region OrderItem
 
-        public static OrderItems Map(OrderItemsDTO from)
+        public static OrderItem Map(OrderItemDTO from)
         {
             try
             {
                 if (from == null)
                     return null;
 
-                var to = new OrderItems
+                var to = new OrderItem
                 {
                     ProductId = from.ProductId,
                     OrderId = from.OrderId,
@@ -297,14 +297,14 @@ namespace OnlineShopping.Mapper
             }
         }
 
-        public static OrderItemsDTO Map(OrderItems from)
+        public static OrderItemDTO Map(OrderItem from)
         {
             try
             {
                 if (from == null)
                     return null;
 
-                var to = new OrderItemsDTO
+                var to = new OrderItemDTO
                 {
                     ProductId = from.ProductId,
                     OrderId = from.OrderId,
@@ -475,16 +475,16 @@ namespace OnlineShopping.Mapper
 
         #endregion
 
-        #region ProductImages-List
+        #region ProductImage-List
 
-        public static ICollection<ProductImages> Map(ICollection<ProductImagesDTO> from)
+        public static ICollection<ProductImage> Map(ICollection<ProductImageDTO> from)
         {
             try
             {
                 if (from.Count == 0 && from == null)
                     return null;
 
-                var to = new List<ProductImages>();
+                var to = new List<ProductImage>();
 
                 foreach (var item in from)
                 {
@@ -500,64 +500,14 @@ namespace OnlineShopping.Mapper
             }
         }
 
-        public static ICollection<ProductImagesDTO> Map(ICollection<ProductImages> from)
+        public static ICollection<ProductImageDTO> Map(ICollection<ProductImage> from)
         {
             try
             {
                 if (from.Count == 0 && from == null)
                     return null;
 
-                var to = new List<ProductImagesDTO>();
-
-                foreach (var item in from)
-                {
-                    to.Add(Map(item));
-                }
-
-                return to;
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-        }
-
-        #endregion
-
-        #region CartItems-List
-
-        public static ICollection<CartItems> Map(ICollection<CartItemsDTO> from)
-        {
-            try
-            {
-                if (from.Count == 0 && from == null)
-                    return null;
-
-                var to = new List<CartItems>();
-
-                foreach (var item in from)
-                {
-                    to.Add(Map(item));
-                }
-
-                return to;
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-        }
-
-        public static ICollection<CartItemsDTO> Map(ICollection<CartItems> from)
-        {
-            try
-            {
-                if (from.Count == 0 && from == null)
-                    return null;
-
-                var to = new List<CartItemsDTO>();
+                var to = new List<ProductImageDTO>();
 
                 foreach (var item in from)
                 {
@@ -575,16 +525,16 @@ namespace OnlineShopping.Mapper
 
         #endregion
 
-        #region OrderItems-List
+        #region CartItem-List
 
-        public static ICollection<OrderItems> Map(ICollection<OrderItemsDTO> from)
+        public static ICollection<CartItem> Map(ICollection<CartItemDTO> from)
         {
             try
             {
                 if (from.Count == 0 && from == null)
                     return null;
 
-                var to = new List<OrderItems>();
+                var to = new List<CartItem>();
 
                 foreach (var item in from)
                 {
@@ -600,14 +550,64 @@ namespace OnlineShopping.Mapper
             }
         }
 
-        public static ICollection<OrderItemsDTO> Map(ICollection<OrderItems> from)
+        public static ICollection<CartItemDTO> Map(ICollection<CartItem> from)
         {
             try
             {
                 if (from.Count == 0 && from == null)
                     return null;
 
-                var to = new List<OrderItemsDTO>();
+                var to = new List<CartItemDTO>();
+
+                foreach (var item in from)
+                {
+                    to.Add(Map(item));
+                }
+
+                return to;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region OrderItem-List
+
+        public static ICollection<OrderItem> Map(ICollection<OrderItemDTO> from)
+        {
+            try
+            {
+                if (from.Count == 0 && from == null)
+                    return null;
+
+                var to = new List<OrderItem>();
+
+                foreach (var item in from)
+                {
+                    to.Add(Map(item));
+                }
+
+                return to;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public static ICollection<OrderItemDTO> Map(ICollection<OrderItem> from)
+        {
+            try
+            {
+                if (from.Count == 0 && from == null)
+                    return null;
+
+                var to = new List<OrderItemDTO>();
 
                 foreach (var item in from)
                 {

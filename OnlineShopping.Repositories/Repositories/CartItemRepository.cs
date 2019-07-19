@@ -8,7 +8,7 @@ using System.Text;
 
 namespace OnlineShopping.Repositories.Repositories
 {
-    public class CartItemsRepository : Repository<CartItems>, ICartItemsRepository
+    public class CartItemRepository : Repository<CartItem>, ICartItemRepository
     {
         public OnlineShoppingContext OnlineShoppingContext
         {
@@ -18,17 +18,17 @@ namespace OnlineShopping.Repositories.Repositories
             }
         }
 
-        public CartItemsRepository(OnlineShoppingContext context) : base(context)
+        public CartItemRepository(OnlineShoppingContext context) : base(context)
         {
         }
 
-        public IEnumerable<CartItems> GetAllCartItemsByUserID(int uid)
+        public IEnumerable<CartItem> GetAllCartItemsByUserID(int uid)
         {
             return OnlineShoppingContext.CartItems
                 .Where(ci => ci.UserId == uid);
         }
 
-        public IEnumerable<CartItems> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
+        public IEnumerable<CartItem> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {
             return OnlineShoppingContext.CartItems
                 .Where(ci=>ci.UserId == uid)
@@ -36,17 +36,17 @@ namespace OnlineShopping.Repositories.Repositories
                 .Take(pageSize);
         }
 
-        public CartItems GetCartItemsByUserAndProductIDs(int uid, int pid)
+        public CartItem GetCartItemByUserAndProductIDs(int uid, int pid)
         {
             return OnlineShoppingContext.CartItems
                 .SingleOrDefault(ci => ci.UserId == uid && ci.ProductId == pid);
         }
 
-        public bool EmptyCartItemsList(IEnumerable<CartItems> cartItemsList)
+        public bool EmptyCartItems(IEnumerable<CartItem> cartItems)
         {
-            if(cartItemsList != null)
+            if(cartItems != null)
             {
-                OnlineShoppingContext.RemoveRange(cartItemsList);
+                OnlineShoppingContext.RemoveRange(cartItems);
 
                 return true;
             }

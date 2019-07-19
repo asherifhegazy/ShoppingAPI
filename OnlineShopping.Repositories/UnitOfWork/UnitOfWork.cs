@@ -12,24 +12,24 @@ namespace OnlineShopping.Repositories.UnitOfWork
         public OnlineShoppingContext Context { get; private set; }
 
         public UnitOfWork(OnlineShoppingContext context, IUserRepository userRepository, IOrderRepository orderRepository
-            , IProductRepository productRepository, IProductImagesRepository productImagesRepository
-            , ICartItemsRepository cartItemsRepository, IOrderItemsRepository orderItemsRepository)
+            , IProductRepository productRepository, IProductImageRepository productImageRepository
+            , ICartItemRepository cartItemRepository, IOrderItemRepository orderItemRepository)
         {
             Context = context;
             UserRepository = userRepository;
             OrderRepository = orderRepository;
             ProductRepository = productRepository;
-            ProductImagesRepository = productImagesRepository;
-            CartItemsRepository = cartItemsRepository;
-            OrderItemsRepository= orderItemsRepository;
+            ProductImageRepository = productImageRepository;
+            CartItemRepository = cartItemRepository;
+            OrderItemRepository= orderItemRepository;
         }
 
         public IUserRepository UserRepository { get; set; }
         public IOrderRepository OrderRepository { get; set; }
         public IProductRepository ProductRepository { get; set; }
-        public IProductImagesRepository ProductImagesRepository { get; set; }
-        public ICartItemsRepository CartItemsRepository { get; set; }
-        public IOrderItemsRepository OrderItemsRepository { get; set; }
+        public IProductImageRepository ProductImageRepository { get; set; }
+        public ICartItemRepository CartItemRepository { get; set; }
+        public IOrderItemRepository OrderItemRepository { get; set; }
 
         public void Dispose()
         {

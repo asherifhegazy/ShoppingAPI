@@ -5,9 +5,9 @@ using System.Text;
 
 namespace OnlineShopping.Services.Interfaces
 {
-    public interface IProductImagesService
+    public interface IProductImageService
     {
-        bool AddProductImagesToProduct(ProductImagesDTO productImagesDTO);
+        bool AddProductImageToProduct(ProductImageDTO productImageDTO);
 
         List<bool> RemoveProductImagesFromProductByProductID(int pid);
     }

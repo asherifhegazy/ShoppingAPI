@@ -7,7 +7,7 @@ namespace OnlineShopping.Data.Domain.Models
     {
         public Order()
         {
-            OrderItems = new HashSet<OrderItems>();
+            OrderItems = new HashSet<OrderItem>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace OnlineShopping.Data.Domain.Models
         public DateTime? CreatedDate { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<OrderItems> OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

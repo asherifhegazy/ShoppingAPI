@@ -7,9 +7,9 @@ namespace OnlineShopping.Data.Domain.Models
     {
         public Product()
         {
-            CartItems = new HashSet<CartItems>();
-            OrderItems = new HashSet<OrderItems>();
-            ProductImages = new HashSet<ProductImages>();
+            CartItems = new HashSet<CartItem>();
+            OrderItems = new HashSet<OrderItem>();
+            ProductImages = new HashSet<ProductImage>();
         }
 
         public int Id { get; set; }
@@ -20,8 +20,8 @@ namespace OnlineShopping.Data.Domain.Models
         public string ImagePosterUrl { get; set; }
         public DateTime? CreatedDate { get; set; }
 
-        public virtual ICollection<CartItems> CartItems { get; set; }
-        public virtual ICollection<OrderItems> OrderItems { get; set; }
-        public virtual ICollection<ProductImages> ProductImages { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
     }
 }

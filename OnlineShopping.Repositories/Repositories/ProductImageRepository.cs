@@ -8,7 +8,7 @@ using System.Text;
 
 namespace OnlineShopping.Repositories.Repositories
 {
-    public class ProductImagesRepository : Repository<ProductImages>, IProductImagesRepository
+    public class ProductImageRepository : Repository<ProductImage>, IProductImageRepository
     {
         public OnlineShoppingContext OnlineShoppingContext
         {
@@ -18,7 +18,7 @@ namespace OnlineShopping.Repositories.Repositories
             }
         }
 
-        public ProductImagesRepository(OnlineShoppingContext context) : base(context)
+        public ProductImageRepository(OnlineShoppingContext context) : base(context)
         {
         }
 
@@ -29,7 +29,7 @@ namespace OnlineShopping.Repositories.Repositories
                 .Select(pi => pi.ImageUrl);
         }
 
-        public IEnumerable<ProductImages> GetProductImagesByProductID(int id)
+        public IEnumerable<ProductImage> GetProductImagesByProductID(int id)
         {
             return OnlineShoppingContext.ProductImages
                 .Where(pi => pi.ProductId == id);

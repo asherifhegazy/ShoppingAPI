@@ -38,17 +38,17 @@ namespace OnlineShopping.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductImagesRepository, ProductImagesRepository>();
-            services.AddScoped<ICartItemsRepository, CartItemsRepository>();
-            services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+            services.AddScoped<IProductImageRepository, ProductImageRepository>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemsRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBusinessUnity, BusinessUnity>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductImagesService, ProductImagesService>();
-            services.AddScoped<ICartItemsService, CartItemsService>();
+            services.AddScoped<IProductImageService, ProductImageService>();
+            services.AddScoped<ICartItemService, CartItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

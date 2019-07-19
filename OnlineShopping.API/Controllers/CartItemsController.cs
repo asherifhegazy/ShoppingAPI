@@ -22,37 +22,37 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/CartItems/5
         [HttpGet("{uid}")]
-        public IEnumerable<CartItemsDTO> GetAllCartItemsByUserID(int uid)
+        public IEnumerable<CartItemDTO> GetAllCartItemsByUserID(int uid)
         {
-            var result = _businessUnity.CartItemsService.GetAllCartItemsByUserID(uid);
+            var result = _businessUnity.CartItemService.GetAllCartItemsByUserID(uid);
             return result;
         }
 
         [HttpGet("{uid}/{pageIndex}/{pageSize}")]
-        public IEnumerable<CartItemsDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
+        public IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {
-            var result = _businessUnity.CartItemsService.GetCartItemsPagingByUserID(uid, pageIndex, pageSize);
+            var result = _businessUnity.CartItemService.GetCartItemsPagingByUserID(uid, pageIndex, pageSize);
             return result;
         }
 
         [HttpPost]
-        public bool AddCartItem([FromBody] CartItemsDTO cartItemsDTO)
+        public bool AddCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var result = _businessUnity.CartItemsService.AddCartItem(cartItemsDTO);
+            var result = _businessUnity.CartItemService.AddCartItem(cartItemDTO);
             return result;
         }
 
         [HttpDelete]
-        public bool RemoveCartItems([FromBody] CartItemsDTO cartItemsDTO)
+        public bool RemoveCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var result = _businessUnity.CartItemsService.RemoveCartItems(cartItemsDTO);
+            var result = _businessUnity.CartItemService.RemoveCartItem(cartItemDTO);
             return result;
         }
 
         [HttpDelete("{uid}")]
-        public bool EmptyCartItemsListByUserID(int uid)
+        public bool EmptyCartItemsByUserID(int uid)
         {
-            var result = _businessUnity.CartItemsService.EmptyCartItemsListByUserID(uid);
+            var result = _businessUnity.CartItemService.EmptyCartItemsByUserID(uid);
             return result;
         }
     }

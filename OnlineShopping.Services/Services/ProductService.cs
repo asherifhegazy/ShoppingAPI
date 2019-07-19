@@ -100,7 +100,7 @@ namespace OnlineShopping.Services.Services
 
         private ProductDTO AddProductImagesToProductDTO(ProductDTO productDTO)
         {
-            productDTO.Images = _unitOfWork.ProductImagesRepository.GetProductImagesURLsByProductID(productDTO.Id);
+            productDTO.Images = _unitOfWork.ProductImageRepository.GetProductImagesURLsByProductID(productDTO.Id);
 
             return productDTO;
         }

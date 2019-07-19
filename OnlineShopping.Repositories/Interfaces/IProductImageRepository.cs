@@ -5,10 +5,10 @@ using System.Text;
 
 namespace OnlineShopping.Repositories.Interfaces
 {
-    public interface IProductImagesRepository : IRepository<ProductImages>
+    public interface IProductImageRepository : IRepository<ProductImage>
     {
         IEnumerable<string> GetProductImagesURLsByProductID(int id);
 
-        IEnumerable<ProductImages> GetProductImagesByProductID(int id);
+        IEnumerable<ProductImage> GetProductImagesByProductID(int id);
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OnlineShopping.Repositories.Repositories
 {
-    public class OrderItemsRepository : Repository<OrderItems>, IOrderItemsRepository
+    public class OrderItemsRepository : Repository<OrderItem>, IOrderItemRepository
     {
         public OnlineShoppingContext OnlineShoppingContext
         {

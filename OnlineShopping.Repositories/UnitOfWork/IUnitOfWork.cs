@@ -13,11 +13,11 @@ namespace OnlineShopping.Repositories.UnitOfWork
 
         IProductRepository ProductRepository { get; set; }
 
-        IProductImagesRepository ProductImagesRepository { get; set; }
+        IProductImageRepository ProductImageRepository { get; set; }
 
-        ICartItemsRepository CartItemsRepository { get; set; }
+        ICartItemRepository CartItemRepository { get; set; }
 
-        IOrderItemsRepository OrderItemsRepository { get; set; }
+        IOrderItemRepository OrderItemRepository { get; set; }
 
         void SaveChanges();
     }

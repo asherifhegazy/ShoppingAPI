@@ -22,15 +22,16 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/ProductImages
         [HttpPost]
-        public bool AddProductImagesToProduct([FromBody] ProductImagesDTO productImagesDTO)
+        public bool AddProductImagesToProduct([FromBody] ProductImageDTO productImagesDTO)
         {
-            var isAdded = _businessUnity.ProductImagesService.AddProductImagesToProduct(productImagesDTO);
+            var isAdded = _businessUnity.ProductImageService.AddProductImageToProduct(productImagesDTO);
             return isAdded;
         }
 
+        [HttpDelete("{pid}")]
         public List<bool> RemoveProductImagesFromProductByProductID(int pid)
         {
-            var isRemoved = _businessUnity.ProductImagesService.RemoveProductImagesFromProductByProductID(pid);
+            var isRemoved = _businessUnity.ProductImageService.RemoveProductImagesFromProductByProductID(pid);
             return isRemoved;
         }
     }

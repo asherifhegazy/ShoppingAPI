@@ -10,21 +10,21 @@ using System.Text;
 
 namespace OnlineShopping.Services.Services
 {
-    public class ProductImagesService : IProductImagesService
+    public class ProductImageService : IProductImageService
     {
         private IUnitOfWork _unitOfWork;
 
-        public ProductImagesService(IUnitOfWork unitOfWork)
+        public ProductImageService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddProductImagesToProduct(ProductImagesDTO productImagesDTO)
+        public bool AddProductImageToProduct(ProductImageDTO productImageDTO)
         {
-            if (productImagesDTO != null)
+            if (productImageDTO != null)
             {
-                var productImages = SMapper.Map(productImagesDTO);
-                var result = _unitOfWork.ProductImagesRepository.Add(productImages);
+                var productImage = SMapper.Map(productImageDTO);
+                var result = _unitOfWork.ProductImageRepository.Add(productImage);
                 _unitOfWork.SaveChanges();
 
                 return result;
@@ -33,9 +33,9 @@ namespace OnlineShopping.Services.Services
             return false;
         }
 
-        private IEnumerable<ProductImages> GetProductImagesByProductID(int pid)
+        private IEnumerable<ProductImage> GetProductImagesByProductID(int pid)
         {
-            return _unitOfWork.ProductImagesRepository.GetProductImagesByProductID(pid);
+            return _unitOfWork.ProductImageRepository.GetProductImagesByProductID(pid);
         }
 
         public List<bool> RemoveProductImagesFromProductByProductID(int pid)
@@ -46,7 +46,7 @@ namespace OnlineShopping.Services.Services
                 List<bool> results = new List<bool>();
                 for(int index = 0; index < productImages.Count(); index++)
                 {
-                    var result = _unitOfWork.ProductImagesRepository.Remove(productImages.ElementAt(index));
+                    var result = _unitOfWork.ProductImageRepository.Remove(productImages.ElementAt(index));
                     results.Add(result);
                 }
 

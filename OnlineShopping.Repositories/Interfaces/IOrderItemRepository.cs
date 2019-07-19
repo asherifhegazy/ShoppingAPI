@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OnlineShopping.Repositories.Interfaces
 {
-    public interface IOrderItemsRepository : IRepository<OrderItems>
+    public interface IOrderItemRepository : IRepository<OrderItem>
     {
     }
 }
