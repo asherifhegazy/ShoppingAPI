@@ -125,6 +125,7 @@ namespace OnlineShopping.Mapper
                     Description = from.Description,
                     Price = from.Price,
                     Quantity = from.Quantity,
+                    ImagePosterUrl = from.ImagePosterUrl,
                     CreatedDate = from.CreatedDate
                 };
 
@@ -151,6 +152,7 @@ namespace OnlineShopping.Mapper
                     Description = from.Description,
                     Price = from.Price,
                     Quantity = from.Quantity,
+                    ImagePosterUrl = from.ImagePosterUrl,
                     CreatedDate = from.CreatedDate
                 };
 
@@ -228,7 +230,6 @@ namespace OnlineShopping.Mapper
 
                 var to = new CartItems
                 {
-                    Id = from.Id,
                     ProductId = from.ProductId,
                     UserId = from.UserId,
                     Quantity = from.Quantity,
@@ -253,7 +254,6 @@ namespace OnlineShopping.Mapper
 
                 var to = new CartItemsDTO
                 {
-                    Id = from.Id,
                     ProductId = from.ProductId,
                     UserId = from.UserId,
                     Quantity = from.Quantity,
@@ -282,7 +282,6 @@ namespace OnlineShopping.Mapper
 
                 var to = new OrderItems
                 {
-                    Id = from.Id,
                     ProductId = from.ProductId,
                     OrderId = from.OrderId,
                     Quantity = from.Quantity,
@@ -307,7 +306,6 @@ namespace OnlineShopping.Mapper
 
                 var to = new OrderItemsDTO
                 {
-                    Id = from.Id,
                     ProductId = from.ProductId,
                     OrderId = from.OrderId,
                     Quantity = from.Quantity,

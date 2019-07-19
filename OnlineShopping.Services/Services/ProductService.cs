@@ -37,7 +37,7 @@ namespace OnlineShopping.Services.Services
             var result = _unitOfWork.ProductRepository.FilterProductsByPriceRange(minPrice, maxPrice);
             var productsDTO = SMapper.Map(result.ToList());
 
-            productsDTO = AddProductImagesToProductDTOList(productsDTO);
+            //productsDTO = AddProductImagesToProductDTOList(productsDTO);
 
             return productsDTO;
         }
@@ -47,7 +47,7 @@ namespace OnlineShopping.Services.Services
             var result = _unitOfWork.ProductRepository.FilterProductsByPriceRangePaging(minPrice, maxPrice, pageIndex, pageSize);
             var productsDTO = SMapper.Map(result.ToList());
 
-            productsDTO = AddProductImagesToProductDTOList(productsDTO);
+            //productsDTO = AddProductImagesToProductDTOList(productsDTO);
 
             return productsDTO;
         }
@@ -57,7 +57,7 @@ namespace OnlineShopping.Services.Services
             var result = _unitOfWork.ProductRepository.GetAll();
             var productsDTO = SMapper.Map(result.ToList());
 
-            productsDTO = AddProductImagesToProductDTOList(productsDTO);
+            //productsDTO = AddProductImagesToProductDTOList(productsDTO);
 
             return productsDTO;
         }
@@ -77,7 +77,7 @@ namespace OnlineShopping.Services.Services
             var result = _unitOfWork.ProductRepository.GetProductsPaging(pageIndex, pageSize);
             var productsDTO = SMapper.Map(result.ToList());
 
-            productsDTO = AddProductImagesToProductDTOList(productsDTO);
+            //productsDTO = AddProductImagesToProductDTOList(productsDTO);
 
             return productsDTO;
         }
@@ -105,16 +105,16 @@ namespace OnlineShopping.Services.Services
             return productDTO;
         }
 
-        private ICollection<ProductDTO> AddProductImagesToProductDTOList(ICollection<ProductDTO> productsDTO)
-        {
-            productsDTO.Select(p =>
-            {
-                p.Images = _unitOfWork.ProductImagesRepository.GetProductImagesURLsByProductID(p.Id);
+        //private ICollection<ProductDTO> AddProductImagesToProductDTOList(ICollection<ProductDTO> productsDTO)
+        //{
+        //    productsDTO.Select(p =>
+        //    {
+        //        p.Images = _unitOfWork.ProductImagesRepository.GetProductImagesURLsByProductID(p.Id);
 
-                return p;
-            });
+        //        return p;
+        //    });
 
-            return productsDTO;
-        }
+        //    return productsDTO;
+        //}
     }
 }

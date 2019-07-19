@@ -17,6 +17,7 @@ namespace OnlineShopping.Data.Domain.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public string ImagePosterUrl { get; set; }
         public DateTime? CreatedDate { get; set; }
 
         public virtual ICollection<CartItems> CartItems { get; set; }

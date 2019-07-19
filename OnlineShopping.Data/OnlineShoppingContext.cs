@@ -19,14 +19,14 @@ namespace OnlineShopping.Data
         public virtual DbSet<ProductImages> ProductImages { get; set; }
         public virtual DbSet<User> User { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;");
-//            }
-//        }
+        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //        {
+        //            if (!optionsBuilder.IsConfigured)
+        //            {
+        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+        //                optionsBuilder.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;");
+        //            }
+        //        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,14 @@ namespace OnlineShopping.Data
 
             modelBuilder.Entity<CartItems>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.HasKey(e => new { e.UserId, e.ProductId })
+                    .HasName("UserProduct");
 
-                entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.CartItems)
@@ -72,13 +73,14 @@ namespace OnlineShopping.Data
 
             modelBuilder.Entity<OrderItems>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+                entity.HasKey(e => new { e.OrderId, e.ProductId })
+                    .HasName("OrderProduct");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItems)
@@ -101,6 +103,11 @@ namespace OnlineShopping.Data
 
                 entity.Property(e => e.Description)
                     .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ImagePosterUrl)
+                    .IsRequired()
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
@@ -134,7 +141,7 @@ namespace OnlineShopping.Data
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ__User__536C85E43DF035F6")
+                    .HasName("UQ__User__536C85E424380A07")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -147,5 +154,125 @@ namespace OnlineShopping.Data
                     .IsUnicode(false);
             });
         }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+
+        //    modelBuilder.Entity<CartItems>(entity =>
+        //    {
+        //        entity.Property(e => e.Id).HasColumnName("ID");
+
+        //        entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+        //        entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+        //        entity.Property(e => e.UserId).HasColumnName("UserID");
+
+        //        entity.HasOne(d => d.Product)
+        //            .WithMany(p => p.CartItems)
+        //            .HasForeignKey(d => d.ProductId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("FK__CartItems__Produ__5070F446");
+
+        //        entity.HasOne(d => d.User)
+        //            .WithMany(p => p.CartItems)
+        //            .HasForeignKey(d => d.UserId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("FK__CartItems__UserI__4F7CD00D");
+        //    });
+
+        //    modelBuilder.Entity<Order>(entity =>
+        //    {
+        //        entity.Property(e => e.Id).HasColumnName("ID");
+
+        //        entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+        //        entity.Property(e => e.UserId).HasColumnName("UserID");
+
+        //        entity.HasOne(d => d.User)
+        //            .WithMany(p => p.Order)
+        //            .HasForeignKey(d => d.UserId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("FK__Order__UserID__3C69FB99");
+        //    });
+
+        //    modelBuilder.Entity<OrderItems>(entity =>
+        //    {
+        //        entity.Property(e => e.Id).HasColumnName("ID");
+
+        //        entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+        //        entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+        //        entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+        //        entity.HasOne(d => d.Order)
+        //            .WithMany(p => p.OrderItems)
+        //            .HasForeignKey(d => d.OrderId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("FK__OrderItem__Order__49C3F6B7");
+
+        //        entity.HasOne(d => d.Product)
+        //            .WithMany(p => p.OrderItems)
+        //            .HasForeignKey(d => d.ProductId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("FK__OrderItem__Produ__4AB81AF0");
+        //    });
+
+        //    modelBuilder.Entity<Product>(entity =>
+        //    {
+        //        entity.Property(e => e.Id).HasColumnName("ID");
+
+        //        entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+        //        entity.Property(e => e.Description)
+        //            .IsRequired()
+        //            .IsUnicode(false);
+
+        //        entity.Property(e => e.Name)
+        //            .IsRequired()
+        //            .HasMaxLength(200)
+        //            .IsUnicode(false);
+
+        //        entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+        //    });
+
+        //    modelBuilder.Entity<ProductImages>(entity =>
+        //    {
+        //        entity.Property(e => e.Id).HasColumnName("ID");
+
+        //        entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+        //        entity.Property(e => e.ImageUrl)
+        //            .IsRequired()
+        //            .HasMaxLength(500)
+        //            .IsUnicode(false);
+
+        //        entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+        //        entity.HasOne(d => d.Product)
+        //            .WithMany(p => p.ProductImages)
+        //            .HasForeignKey(d => d.ProductId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("FK__ProductIm__Produ__44FF419A");
+        //    });
+
+        //    modelBuilder.Entity<User>(entity =>
+        //    {
+        //        entity.HasIndex(e => e.Username)
+        //            .HasName("UQ__User__536C85E43DF035F6")
+        //            .IsUnique();
+
+        //        entity.Property(e => e.Id).HasColumnName("ID");
+
+        //        entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+        //        entity.Property(e => e.Username)
+        //            .IsRequired()
+        //            .HasMaxLength(50)
+        //            .IsUnicode(false);
+        //    });
+        //}
     }
 }
