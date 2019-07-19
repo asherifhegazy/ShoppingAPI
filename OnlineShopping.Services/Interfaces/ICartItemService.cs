@@ -9,7 +9,7 @@ namespace OnlineShopping.Services.Interfaces
     {
         IEnumerable<CartItemDTO> GetAllCartItemsByUserID(int uid);
 
-        IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid,int pageIndex, int pageSize = 10);
+        IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10);
 
         bool AddCartItem(CartItemDTO cartItemDTO);
 

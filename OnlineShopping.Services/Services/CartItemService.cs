@@ -66,15 +66,27 @@ namespace OnlineShopping.Services.Services
         public IEnumerable<CartItemDTO> GetAllCartItemsByUserID(int uid)
         {
             var result = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid);
-            var cartItemsDTO = SMapper.Map(result.ToList());
+            var cartItemsDTO = SMapper.Map(result.ToList())
+                .Select(ci =>
+                {
+                    ci.Price = _unitOfWork.ProductRepository.GetByID(ci.ProductId).Price;
+
+                    return ci;
+                }); 
 
             return cartItemsDTO;
         }
 
         public IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {
-            var result = _unitOfWork.CartItemRepository.GetCartItemsPagingByUserID(uid,pageIndex,pageSize);
-            var cartItemsDTO = SMapper.Map(result.ToList());
+            var result = _unitOfWork.CartItemRepository.GetCartItemsPagingByUserID(uid, pageIndex, pageSize);
+            var cartItemsDTO = SMapper.Map(result.ToList())
+                .Select(ci =>
+                {
+                    ci.Price = _unitOfWork.ProductRepository.GetByID(ci.ProductId).Price;
+
+                    return ci;
+                });
 
             return cartItemsDTO;
         }

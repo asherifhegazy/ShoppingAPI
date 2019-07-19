@@ -30,6 +30,9 @@ namespace OnlineShopping.Repositories.Repositories
 
         public IEnumerable<CartItem> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {
+            if (pageSize < 1)
+                pageSize = 1;
+
             return OnlineShoppingContext.CartItems
                 .Where(ci=>ci.UserId == uid)
                 .Skip((pageIndex - 1) * pageSize)
