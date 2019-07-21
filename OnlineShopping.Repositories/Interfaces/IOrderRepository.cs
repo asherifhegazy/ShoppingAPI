@@ -7,5 +7,8 @@ namespace OnlineShopping.Repositories.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
+        Order GetOrderByID(int id);
+
+        IEnumerable<Order> GetAllOrdersByUserID(int uid);
     }
 }

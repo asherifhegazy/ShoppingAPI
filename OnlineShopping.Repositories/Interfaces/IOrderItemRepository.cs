@@ -7,5 +7,8 @@ namespace OnlineShopping.Repositories.Interfaces
 {
     public interface IOrderItemRepository : IRepository<OrderItem>
     {
+        bool AddOrderItems(IEnumerable<OrderItem> orderItems);
+
+        IEnumerable<OrderItem> GetOrderItems(int oid);
     }
 }

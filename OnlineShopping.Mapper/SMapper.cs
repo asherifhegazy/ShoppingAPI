@@ -323,6 +323,55 @@ namespace OnlineShopping.Mapper
 
         #endregion
 
+        #region CartItem - OrderItem & Lists
+
+        public static OrderItem MapTypes(CartItem from)
+        {
+            try
+            {
+                if (from == null)
+                    return null;
+
+                var to = new OrderItem
+                {
+                    ProductId = from.ProductId,
+                    Quantity = from.Quantity
+                };
+
+                return to;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public static ICollection<OrderItem> MapTypes(ICollection<CartItem> from)
+        {
+            try
+            {
+                if (from.Count == 0 && from == null)
+                    return null;
+
+                var to = new List<OrderItem>();
+
+                foreach (var item in from)
+                {
+                    to.Add(MapTypes(item));
+                }
+
+                return to;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        #endregion
+
         /// Mapping Lists
 
         #region User-List
