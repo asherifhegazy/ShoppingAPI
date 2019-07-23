@@ -35,6 +35,13 @@ namespace OnlineShopping.API
             services.AddDbContext<Data.OnlineShoppingContext>(o => o.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;",                builder => builder.MigrationsAssembly(typeof(Startup).Assembly.FullName)));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -65,6 +72,7 @@ namespace OnlineShopping.API
                 app.UseHsts();
             }
 
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
