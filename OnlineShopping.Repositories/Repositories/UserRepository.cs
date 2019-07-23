@@ -48,6 +48,5 @@ namespace OnlineShopping.Repositories.Repositories
             var result = OnlineShoppingContext.Users.Any(u => u.Username == username);
             return result;
         }
-
     }
 }
