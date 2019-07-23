@@ -36,8 +36,8 @@ namespace OnlineShopping.API.Controllers
             return user;
         }
 
-        // GET: api/Users/user/5
-        [HttpGet("user/{username}")]
+        // GET: api/Users/5
+        [HttpGet("{username}")]
         public UserDTO GetUserByUsername(string username)
         {
             var user = _businessUnity.UserService.GetUserByUsername(username);
