@@ -1,4 +1,5 @@
-﻿using OnlineShopping.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShopping.Data;
 using OnlineShopping.Data.Domain.Models;
 using OnlineShopping.Repositories.Interfaces;
 using System;
@@ -25,6 +26,7 @@ namespace OnlineShopping.Repositories.Repositories
         public IEnumerable<CartItem> GetAllCartItemsByUserID(int uid)
         {
             return OnlineShoppingContext.CartItems
+                .Include(ci => ci.Product)
                 .Where(ci => ci.UserId == uid);
         }
 
@@ -34,6 +36,7 @@ namespace OnlineShopping.Repositories.Repositories
                 pageSize = 1;
 
             return OnlineShoppingContext.CartItems
+                .Include(ci => ci.Product)
                 .Where(ci=>ci.UserId == uid)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
@@ -42,6 +45,7 @@ namespace OnlineShopping.Repositories.Repositories
         public CartItem GetCartItemByUserAndProductIDs(int uid, int pid)
         {
             return OnlineShoppingContext.CartItems
+                .Include(ci => ci.Product)
                 .SingleOrDefault(ci => ci.UserId == uid && ci.ProductId == pid);
         }
 

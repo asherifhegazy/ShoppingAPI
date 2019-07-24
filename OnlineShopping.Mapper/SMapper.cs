@@ -257,6 +257,7 @@ namespace OnlineShopping.Mapper
                     ProductId = from.ProductId,
                     UserId = from.UserId,
                     Quantity = from.Quantity,
+                    Product = Map(from.Product),
                     CreatedDate = from.CreatedDate
                 };
 
