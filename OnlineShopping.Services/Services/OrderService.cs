@@ -55,7 +55,8 @@ namespace OnlineShopping.Services.Services
                 // to have ID for newOrder
                 _unitOfWork.SaveChanges();
 
-                var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid);
+                var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
+                    .Where(ci => ci.Product.Quantity > ci.Quantity);
 
                 if (cartItems != null)
                 {
@@ -63,6 +64,7 @@ namespace OnlineShopping.Services.Services
                         .Select(oi =>
                         {
                             oi.OrderId = newOrder.Id;
+                            oi.Product.Quantity -= oi.Quantity;
 
                             return oi;
                         });

@@ -286,6 +286,7 @@ namespace OnlineShopping.Mapper
                     ProductId = from.ProductId,
                     OrderId = from.OrderId,
                     Quantity = from.Quantity,
+                    Product = Map(from.Product),
                     CreatedDate = from.CreatedDate
                 };
 
@@ -310,6 +311,7 @@ namespace OnlineShopping.Mapper
                     ProductId = from.ProductId,
                     OrderId = from.OrderId,
                     Quantity = from.Quantity,
+                    Product = Map(from.Product),
                     CreatedDate = from.CreatedDate
                 };
 
@@ -336,7 +338,8 @@ namespace OnlineShopping.Mapper
                 var to = new OrderItem
                 {
                     ProductId = from.ProductId,
-                    Quantity = from.Quantity
+                    Quantity = from.Quantity,
+                    Product = from.Product
                 };
 
                 return to;

@@ -1,4 +1,5 @@
-﻿using OnlineShopping.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShopping.Data;
 using OnlineShopping.Data.Domain.Models;
 using OnlineShopping.Repositories.Interfaces;
 using System;
@@ -37,6 +38,7 @@ namespace OnlineShopping.Repositories.Repositories
         public IEnumerable<OrderItem> GetOrderItems(int oid)
         {
             return OnlineShoppingContext.OrderItems
+                .Include(oi=>oi.Product)
                 .Where(oi => oi.OrderId == oid);
         }
     }
