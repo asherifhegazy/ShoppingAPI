@@ -28,6 +28,13 @@ namespace OnlineShopping.API.Controllers
             return result;
         }
 
+        [HttpGet("count/{uid}")]
+        public int GetNumberOfCartItemsByUserID(int uid)
+        {
+            var result = _businessUnity.CartItemService.GetNumberOfCartItemsByUserID(uid);
+            return result;
+        }
+
         [HttpGet("{uid}/{pageIndex}/{pageSize}")]
         public IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {

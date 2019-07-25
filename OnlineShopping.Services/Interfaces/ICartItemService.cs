@@ -16,5 +16,7 @@ namespace OnlineShopping.Services.Interfaces
         bool Remove(CartItemDTO cartItemDTO);
 
         bool EmptyCartItemsByUserID(int uid);
+
+        int GetNumberOfCartItemsByUserID(int uid);
     }
 }

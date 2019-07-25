@@ -71,6 +71,14 @@ namespace OnlineShopping.Services.Services
             return cartItemsDTO;
         }
 
+        public int GetNumberOfCartItemsByUserID(int uid)
+        {
+            var result = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid);
+
+            var count = result.Sum(ci => ci.Quantity);
+            return count;
+        }
+
         public IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {
             var result = _unitOfWork.CartItemRepository.GetCartItemsPagingByUserID(uid, pageIndex, pageSize);
