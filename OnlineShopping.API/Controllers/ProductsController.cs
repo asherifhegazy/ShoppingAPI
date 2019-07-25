@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Mapper.Models;
-using OnlineShopping.Services.BusinessUnity;
+using OnlineShopping.Services.Interfaces;
 
 namespace OnlineShopping.API.Controllers
 {
@@ -13,67 +13,95 @@ namespace OnlineShopping.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IBusinessUnity _businessUnity;
+        private readonly IProductService _productService;
 
-        public ProductsController(IBusinessUnity businessUnity)
+        public ProductsController(IProductService productService)
         {
-            _businessUnity = businessUnity;
+            _productService = productService;
         }
 
         // GET: api/Products
         [HttpGet]
-        public IEnumerable<ProductDTO> GetAllProducts()
+        public IActionResult GetAllProducts()
         {
-            var products = _businessUnity.ProductService.GetAllProducts();
-            return products;
+            var products = _productService.GetAllProducts();
+
+            if (products == null)
+                return NotFound();
+
+            return new JsonResult(products);
         }
 
         // GET: api/Products/1/5
         [HttpGet("{pageIndex}/{pageSize}")]
-        public IEnumerable<ProductDTO> GetProductsPaging(int pageIndex, int pageSize)
+        public IActionResult GetProductsPaging(int pageIndex, int pageSize)
         {
-            var products = _businessUnity.ProductService.GetProductsPaging(pageIndex,pageSize);
-            return products;
+            var products = _productService.GetProductsPaging(pageIndex,pageSize);
+
+            if (products == null)
+                return NotFound();
+
+            return new JsonResult(products);
         }
 
         // GET: api/Products/filter/200/5000
         [HttpGet("filter/{minPrice}/{maxPrice}")]
-        public IEnumerable<ProductDTO> GetProductsFilteredByPriceRange(int minPrice, int maxPrice)
+        public IActionResult GetProductsFilteredByPriceRange(int minPrice, int maxPrice)
         {
-            var products = _businessUnity.ProductService.FilterProductsByPriceRange(minPrice, maxPrice);
-            return products;
+            var products = _productService.FilterProductsByPriceRange(minPrice, maxPrice);
+
+            if (products == null)
+                return NotFound();
+
+            return new JsonResult(products);
         }
 
         // GET: api/Products/filter/200/5000/1/5
         [HttpGet("filter/{minPrice}/{maxPrice}/{pageIndex}/{pageSize}")]
-        public IEnumerable<ProductDTO> GetProductsFilteredByPriceRangePaging(int minPrice, int maxPrice, int pageIndex, int pageSize)
+        public IActionResult GetProductsFilteredByPriceRangePaging(int minPrice, int maxPrice, int pageIndex, int pageSize)
         {
-            var products = _businessUnity.ProductService.FilterProductsByPriceRangePaging(minPrice, maxPrice, pageIndex, pageSize);
-            return products;
+            var products = _productService.FilterProductsByPriceRangePaging(minPrice, maxPrice, pageIndex, pageSize);
+
+            if (products == null)
+                return NotFound();
+
+            return new JsonResult(products);
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public ProductDTO GetProduct(int id)
+        public IActionResult GetProduct(int id)
         {
-            var product = _businessUnity.ProductService.GetProductByID(id);
-            return product;
+            var product = _productService.GetProductByID(id);
+
+            if (product == null)
+                return NotFound();
+
+            return new JsonResult(product);
         }
 
         // POST: api/Products
         [HttpPost]
-        public bool AddProduct([FromBody] ProductDTO product)
+        public IActionResult AddProduct([FromBody] ProductDTO product)
         {
-            var isAdded = _businessUnity.ProductService.AddProduct(product);
-            return isAdded;
+            var isAdded = _productService.AddProduct(product);
+
+            if (!isAdded)
+                return NotFound();
+
+            return new JsonResult(isAdded);
         }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public bool RemoveProduct(int id)
+        public IActionResult RemoveProduct(int id)
         {
-            var isDeleted = _businessUnity.ProductService.RemoveProduct(id);
-            return isDeleted;
+            var isDeleted = _productService.RemoveProduct(id);
+
+            if (!isDeleted)
+                return NotFound();
+
+            return new JsonResult(isDeleted);
         }
     }
 }

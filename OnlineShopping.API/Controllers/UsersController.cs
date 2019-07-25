@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Mapper.Models;
-using OnlineShopping.Services.BusinessUnity;
+using OnlineShopping.Services.Interfaces;
 
 namespace OnlineShopping.API.Controllers
 {
@@ -13,51 +13,71 @@ namespace OnlineShopping.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IBusinessUnity _businessUnity;
+        private readonly IUserService _userService;
 
-        public UsersController(IBusinessUnity businessUnity)
+        public UsersController(IUserService userService)
         {
-            _businessUnity = businessUnity;
+            _userService = userService;
         }
 
         // GET: api/Users
         [HttpGet]
-        public IEnumerable<UserDTO> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            var users = _businessUnity.UserService.GetAllUsers();
-            return users;
+            var users = _userService.GetAllUsers();
+
+            if (users == null)
+                return NotFound();
+
+            return new JsonResult(users);
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public UserDTO GetUser(int id)
+        public IActionResult GetUser(int id)
         {
-            var user = _businessUnity.UserService.GetUserByID(id);
-            return user;
+            var user = _userService.GetUserByID(id);
+
+            if (user == null)
+                return NotFound();
+
+            return new JsonResult(user);
         }
 
         // GET: api/Users/user/ahmed
         [HttpGet("user/{username}")]
-        public UserDTO GetUserByUsername(string username)
+        public IActionResult GetUserByUsername(string username)
         {
-            var user = _businessUnity.UserService.GetUserByUsername(username);
-            return user;
+            var user = _userService.GetUserByUsername(username);
+
+            if (user == null)
+                return NotFound();
+
+            return new JsonResult(user);
         }
 
         // POST: api/Users
         [HttpPost]
-        public bool AddUser([FromBody] UserDTO user)
+        public IActionResult AddUser([FromBody] UserDTO user)
         {
-            var isAdded = _businessUnity.UserService.AddUser(user);
-            return isAdded;
+            var isAdded = _userService.AddUser(user);
+            
+            if (!isAdded)
+                return NotFound();
+
+            return new JsonResult(isAdded);
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public bool RemoveUser(int id)
+        public IActionResult RemoveUser(int id)
         {
-            var isDeleted = _businessUnity.UserService.RemoveUser(id);
-            return isDeleted;
+            var isDeleted = _userService.RemoveUser(id);
+
+            if (!isDeleted)
+                return NotFound();
+
+            return new JsonResult(isDeleted);
         }
     }
 }
