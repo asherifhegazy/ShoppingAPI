@@ -1,5 +1,5 @@
 ﻿using OnlineShopping.Data;
-using OnlineShopping.Data.Models;
+using OnlineShopping.Data.Domain.Models;
 using OnlineShopping.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace OnlineShopping.Repositories.Repositories
 
         public override bool Add(User entity)
         {
-            if (entity != null)
+            if(entity != null)
             {
                 if (!IsUserExists(entity.Username))
                 {

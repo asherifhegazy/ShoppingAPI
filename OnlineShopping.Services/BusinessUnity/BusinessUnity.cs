@@ -6,29 +6,23 @@ using System.Text;
 
 namespace OnlineShopping.Services.BusinessUnity
 {
-    public class BusinessUnity
+    public class BusinessUnity: IBusinessUnity
     {
-        public static IUserService UserService { get; set; }
+        public IUserService UserService { get; set; }
+        public IProductService ProductService { get; set; }
+        public IProductImageService ProductImageService { get; set; }
+        public ICartItemService CartItemService { get; set; }
+        public IOrderService OrderService { get; set; }
 
-        public static bool? Initiated { get; set; } = false;
 
-        static BusinessUnity()
+        public BusinessUnity(IUserService userService, IProductService productService, IProductImageService productImageService
+            , ICartItemService cartItemService, IOrderService orderService)
         {
-            Initiated = Initialize();
-        }
-
-        private static bool? Initialize()
-        {
-            try
-            {
-                UserService = new UserService();
-                return true;
-            }
-            catch 
-            {
-
-                return false;
-            }
+            UserService = userService;
+            ProductService = productService;
+            ProductImageService = productImageService;
+            CartItemService = cartItemService;
+            OrderService = orderService;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using OnlineShopping.Data.Models;
+﻿using OnlineShopping.Mapper.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,14 +7,14 @@ namespace OnlineShopping.Services.Interfaces
 {
     public interface IUserService
     {
-        IEnumerable<User> GetAllUsers();
+        IEnumerable<UserDTO> GetAllUsers();
 
-        User GetUserByID(int id);
+        UserDTO GetUserByID(int id);
 
-        bool AddUser(User user);
+        bool AddUser(UserDTO userDTO);
 
         bool RemoveUser(int id);
 
-        User GetUserByUsername(string username);
+        UserDTO GetUserByUsername(string username);
     }
 }

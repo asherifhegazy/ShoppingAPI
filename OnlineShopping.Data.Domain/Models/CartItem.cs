@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OnlineShopping.Data.Models
+namespace OnlineShopping.Data.Domain.Models
 {
-    public partial class CartItems
+    public partial class CartItem
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
