@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Mapper.Models;
-using OnlineShopping.Services.BusinessUnity;
+using OnlineShopping.Services.Interfaces;
 
 namespace OnlineShopping.API.Controllers
 {
@@ -13,59 +13,48 @@ namespace OnlineShopping.API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly IBusinessUnity _businessUnity;
+        private readonly IOrderService _orderService;
+        private readonly ICartItemService _cartItemService;
 
-        public OrdersController(IBusinessUnity businessUnity)
+        public OrdersController(IOrderService orderService, ICartItemService cartItemService)
         {
-            _businessUnity = businessUnity;
+            _orderService = orderService;
+            _cartItemService = cartItemService;
         }
-
-        //[HttpPost("{uid}")]
-        //public bool AddOrderByUserID(int uid, [FromBody] IEnumerable<OrderItemDTO> orderItemsDTO)
-        //{
-        //    var IsAdded = _businessUnity.OrderService.AddOrderByUserID(uid, orderItemsDTO);
-        //    _businessUnity.CartItemService.GetAllCartItemsByUserID(uid);
-        //    if (IsAdded)
-        //    {
-        //        var result = _businessUnity.CartItemService.EmptyCartItemsByUserID(uid);
-        //    }
-        //}
 
         [HttpPost("{uid}")]
-        public bool AddOrderByUserID(int uid)
+        public IActionResult AddOrderByUserID(int uid)
         {
-            var IsAdded = _businessUnity.OrderService.AddOrderByUserID(uid);
+            var IsAdded = _orderService.AddOrderByUserID(uid);
 
             if (!IsAdded)
-                return false;
+                return NotFound();
 
-            var result = _businessUnity.CartItemService.EmptyCartItemsByUserID(uid);
+            var result = _cartItemService.EmptyCartItemsByUserID(uid);
 
-            return result;
+            return new JsonResult(result);
         }
 
-        //[HttpGet("{id}")]
-        //public OrderDTO GetOrderByID(int id)
-        //{
-        //    var result = _businessUnity.OrderService.GetOrderByID(id);
-
-        //    return result;
-        //}
-
         [HttpGet("{oid}")]
-        public IEnumerable<OrderItemDTO> GetOrderItems(int oid)
+        public IActionResult GetOrderItems(int oid)
         {
-            var result = _businessUnity.OrderService.GetOrderItems(oid);
+            var orders = _orderService.GetOrderItems(oid);
 
-            return result;
+            if (orders == null)
+                return NotFound();
+
+            return new JsonResult(orders);
         }
 
         [HttpGet("user/{uid}")]
-        public IEnumerable<OrderDTO> GetAllOrdersByUserID(int uid)
+        public IActionResult GetAllOrdersByUserID(int uid)
         {
-            var result = _businessUnity.OrderService.GetAllOrdersByUserID(uid);
+            var orders = _orderService.GetAllOrdersByUserID(uid);
 
-            return result;
+            if (orders == null)
+                return NotFound();
+
+            return new JsonResult(orders);
         }
     }
 }

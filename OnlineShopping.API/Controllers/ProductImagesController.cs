@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Mapper.Models;
-using OnlineShopping.Services.BusinessUnity;
+using OnlineShopping.Services.Interfaces;
 
 namespace OnlineShopping.API.Controllers
 {
@@ -13,26 +13,34 @@ namespace OnlineShopping.API.Controllers
     [ApiController]
     public class ProductImagesController : ControllerBase
     {
-        private readonly IBusinessUnity _businessUnity;
+        private readonly IProductImageService _productImageService;
 
-        public ProductImagesController(IBusinessUnity businessUnity)
+        public ProductImagesController(IProductImageService productImageService)
         {
-            _businessUnity = businessUnity;
+            _productImageService = productImageService;
         }
 
         // GET: api/ProductImages
         [HttpPost]
-        public bool AddProductImagesToProduct([FromBody] ProductImageDTO productImagesDTO)
+        public IActionResult AddProductImagesToProduct([FromBody] ProductImageDTO productImagesDTO)
         {
-            var isAdded = _businessUnity.ProductImageService.AddProductImageToProduct(productImagesDTO);
-            return isAdded;
+            var isAdded = _productImageService.AddProductImageToProduct(productImagesDTO);
+
+            if (!isAdded)
+                return NotFound();
+
+            return new JsonResult(isAdded);
         }
 
         [HttpDelete("{pid}")]
-        public List<bool> RemoveProductImagesFromProductByProductID(int pid)
+        public IActionResult RemoveProductImagesFromProductByProductID(int pid)
         {
-            var isRemoved = _businessUnity.ProductImageService.RemoveProductImagesFromProductByProductID(pid);
-            return isRemoved;
+            var isRemoved = _productImageService.RemoveProductImagesFromProductByProductID(pid);
+
+            if (isRemoved == null)
+                return NotFound();
+
+            return new JsonResult(isRemoved);
         }
     }
 }

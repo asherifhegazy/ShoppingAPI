@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Mapper.Models;
-using OnlineShopping.Services.BusinessUnity;
+using OnlineShopping.Services.Interfaces;
 
 namespace OnlineShopping.API.Controllers
 {
@@ -13,54 +13,75 @@ namespace OnlineShopping.API.Controllers
     [ApiController]
     public class CartItemsController : ControllerBase
     {
-        private readonly IBusinessUnity _businessUnity;
+        private readonly ICartItemService _cartItemService;
 
-        public CartItemsController(IBusinessUnity businessUnity)
+        public CartItemsController(ICartItemService cartItemService)
         {
-            _businessUnity = businessUnity;
+            _cartItemService = cartItemService;
         }
 
         // GET: api/CartItems/5
         [HttpGet("{uid}")]
-        public IEnumerable<CartItemDTO> GetAllCartItemsByUserID(int uid)
+        public IActionResult GetAllCartItemsByUserID(int uid)
         {
-            var result = _businessUnity.CartItemService.GetAllCartItemsByUserID(uid);
-            return result;
+            var cartItems = _cartItemService.GetAllCartItemsByUserID(uid);
+
+            if (cartItems == null)
+                return NotFound();
+
+            return new JsonResult(cartItems);
         }
 
         [HttpGet("count/{uid}")]
-        public int GetNumberOfCartItemsByUserID(int uid)
+        public IActionResult GetNumberOfCartItemsByUserID(int uid)
         {
-            var result = _businessUnity.CartItemService.GetNumberOfCartItemsByUserID(uid);
-            return result;
+            var count = _cartItemService.GetNumberOfCartItemsByUserID(uid);
+
+            return new JsonResult(count);
         }
 
         [HttpGet("{uid}/{pageIndex}/{pageSize}")]
-        public IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
+        public IActionResult GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10)
         {
-            var result = _businessUnity.CartItemService.GetCartItemsPagingByUserID(uid, pageIndex, pageSize);
-            return result;
+            var cartItems = _cartItemService.GetCartItemsPagingByUserID(uid, pageIndex, pageSize);
+
+            if (cartItems == null)
+                return NotFound();
+
+            return new JsonResult(cartItems);
         }
 
         [HttpPost]
-        public bool AddCartItem([FromBody] CartItemDTO cartItemDTO)
+        public IActionResult AddCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var result = _businessUnity.CartItemService.AddCartItem(cartItemDTO);
-            return result;
+            var isAdded = _cartItemService.AddCartItem(cartItemDTO);
+
+            if (!isAdded)
+                return NotFound();
+
+            return new JsonResult(isAdded);
         }
 
         [HttpDelete]
-        public bool RemoveCartItem([FromBody] CartItemDTO cartItemDTO)
+        public IActionResult RemoveCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var result = _businessUnity.CartItemService.Remove(cartItemDTO);
-            return result;
+            var isDeleted = _cartItemService.Remove(cartItemDTO);
+
+            if (!isDeleted)
+                return NotFound();
+
+            return new JsonResult(isDeleted);
         }
 
         [HttpDelete("{uid}")]
-        public bool EmptyCartItemsByUserID(int uid)
+        public IActionResult EmptyCartItemsByUserID(int uid)
         {
-            var result = _businessUnity.CartItemService.EmptyCartItemsByUserID(uid);
-            return result;
+            var isCleared = _cartItemService.EmptyCartItemsByUserID(uid);
+
+            if (!isCleared)
+                return NotFound();
+
+            return new JsonResult(isCleared);
         }
     }
 }

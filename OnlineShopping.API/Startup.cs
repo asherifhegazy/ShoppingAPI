@@ -14,7 +14,6 @@ using Microsoft.Extensions.Options;
 using OnlineShopping.Repositories.Interfaces;
 using OnlineShopping.Repositories.Repositories;
 using OnlineShopping.Repositories.UnitOfWork;
-using OnlineShopping.Services.BusinessUnity;
 using OnlineShopping.Services.Interfaces;
 using OnlineShopping.Services.Services;
 
@@ -51,7 +50,6 @@ namespace OnlineShopping.API
             services.AddScoped<IOrderItemRepository, OrderItemsRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IBusinessUnity, BusinessUnity>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
