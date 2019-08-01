@@ -104,7 +104,8 @@ namespace OnlineShopping.Services.Services
 
         public bool EmptyCartItemsByUserID(int uid)
         {
-            var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid);
+            var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
+                .Where(ci => ci.Product.Quantity > ci.Quantity);
 
             if(cartItems != null)
             {
