@@ -56,7 +56,7 @@ namespace OnlineShopping.Services.Services
                 _unitOfWork.SaveChanges();
 
                 var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
-                    .Where(ci => ci.Product.Quantity > ci.Quantity);
+                    .Where(ci => ci.Product.Quantity >= ci.Quantity);
 
                 if (cartItems != null)
                 {
