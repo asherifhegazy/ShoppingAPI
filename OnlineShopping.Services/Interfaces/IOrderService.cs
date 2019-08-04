@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Interfaces
 {
@@ -9,8 +10,7 @@ namespace OnlineShopping.Services.Interfaces
     {
         IEnumerable<OrderDTO> GetAllOrdersByUserID(int uid);
 
-        bool AddOrderByUserID(int uid,IEnumerable<OrderItemDTO> orderItemsDTO);
-        bool AddOrderByUserID(int uid);
+        Task<bool> AddOrderByUserID(int uid);
 
         OrderDTO GetOrderByID(int id);
 

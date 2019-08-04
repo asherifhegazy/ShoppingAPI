@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Repositories.Repositories
 {
@@ -28,13 +29,13 @@ namespace OnlineShopping.Repositories.Repositories
             return user;
         }
 
-        public override bool Add(User entity)
+        public override async Task<bool> Add(User entity)
         {
             if(entity != null)
             {
                 if (!IsUserExists(entity.Username))
                 {
-                    return base.Add(entity);
+                    return await base.Add(entity);
                 }
 
                 return false;

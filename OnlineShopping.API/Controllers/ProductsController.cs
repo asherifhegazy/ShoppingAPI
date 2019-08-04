@@ -82,9 +82,9 @@ namespace OnlineShopping.API.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public IActionResult AddProduct([FromBody] ProductDTO product)
+        public async Task<IActionResult> AddProduct([FromBody] ProductDTO product)
         {
-            var isAdded = _productService.AddProduct(product);
+            var isAdded = await _productService.AddProduct(product);
 
             if (!isAdded)
                 return NotFound();
@@ -94,9 +94,9 @@ namespace OnlineShopping.API.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public IActionResult RemoveProduct(int id)
+        public async Task<IActionResult> RemoveProduct(int id)
         {
-            var isDeleted = _productService.RemoveProduct(id);
+            var isDeleted = await _productService.RemoveProduct(id);
 
             if (!isDeleted)
                 return NotFound();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Repositories.Interfaces
 {
@@ -10,7 +11,7 @@ namespace OnlineShopping.Repositories.Interfaces
 
         TEntity GetByID(int id);
 
-        bool Add(TEntity entity);
+        Task<bool> Add(TEntity entity);
 
         bool Remove(TEntity entity);
     }

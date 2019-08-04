@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Interfaces
 {
@@ -11,9 +12,9 @@ namespace OnlineShopping.Services.Interfaces
 
         ProductDTO GetProductByID(int id);
 
-        bool AddProduct(ProductDTO productDTO);
+        Task<bool> AddProduct(ProductDTO productDTO);
 
-        bool RemoveProduct(int id);
+        Task<bool> RemoveProduct(int id);
 
         IEnumerable<ProductDTO> GetProductsPaging(int pageIndex, int pageSize = 10);
 

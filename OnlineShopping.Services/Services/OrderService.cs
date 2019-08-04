@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Services
 {
@@ -19,41 +20,14 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddOrderByUserID(int uid, IEnumerable<OrderItemDTO> orderItemsDTO)
+        public async Task<bool> AddOrderByUserID(int uid)
         {
             var newOrder = new Order { UserId = uid };
-            var result = _unitOfWork.OrderRepository.Add(newOrder);
+            var result = await _unitOfWork.OrderRepository.Add(newOrder);
             if (result)
             {
                 // to have ID for newOrder
-                _unitOfWork.SaveChanges();
-
-                var orderItems = SMapper.Map(orderItemsDTO.ToList())
-                    .Select(oi =>
-                    {
-                        oi.OrderId = newOrder.Id;
-
-                        return oi;
-                    });
-
-                result = _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
-
-                _unitOfWork.SaveChanges();
-
-                return result;
-            }
-
-            return false;
-        }
-
-        public bool AddOrderByUserID(int uid)
-        {
-            var newOrder = new Order { UserId = uid };
-            var result = _unitOfWork.OrderRepository.Add(newOrder);
-            if (result)
-            {
-                // to have ID for newOrder
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
                 var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
                     .Where(ci => ci.Product.Quantity >= ci.Quantity);
@@ -73,9 +47,9 @@ namespace OnlineShopping.Services.Services
                                 return oi;
                             });
 
-                        result = _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
+                        result = await _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
 
-                        _unitOfWork.SaveChanges();
+                        await _unitOfWork.SaveChanges();
 
                         return result;
                     }

@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Services
 {
@@ -19,13 +20,13 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddProductImageToProduct(ProductImageDTO productImageDTO)
+        public async Task<bool> AddProductImageToProduct(ProductImageDTO productImageDTO)
         {
             if (productImageDTO != null)
             {
                 var productImage = SMapper.Map(productImageDTO);
-                var result = _unitOfWork.ProductImageRepository.Add(productImage);
-                _unitOfWork.SaveChanges();
+                var result = await _unitOfWork.ProductImageRepository.Add(productImage);
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }
@@ -38,7 +39,7 @@ namespace OnlineShopping.Services.Services
             return _unitOfWork.ProductImageRepository.GetProductImagesByProductID(pid);
         }
 
-        public List<bool> RemoveProductImagesFromProductByProductID(int pid)
+        public async Task<List<bool>> RemoveProductImagesFromProductByProductID(int pid)
         {
             var productImages = GetProductImagesByProductID(pid);
             if(productImages != null)
@@ -50,7 +51,7 @@ namespace OnlineShopping.Services.Services
                     results.Add(result);
                 }
 
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
                 return results;
                 

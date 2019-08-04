@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Repositories.Repositories
 {
@@ -16,11 +17,11 @@ namespace OnlineShopping.Repositories.Repositories
             Context = context;
         }
 
-        public virtual bool Add(TEntity entity)
+        public virtual async Task<bool> Add(TEntity entity)
         {
             if (entity != null)
             {
-                Context.Set<TEntity>().Add(entity);
+                await Context.Set<TEntity>().AddAsync(entity);
                 return true;
             }
 

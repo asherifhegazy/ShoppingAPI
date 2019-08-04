@@ -22,9 +22,9 @@ namespace OnlineShopping.API.Controllers
 
         // GET: api/ProductImages
         [HttpPost]
-        public IActionResult AddProductImagesToProduct([FromBody] ProductImageDTO productImagesDTO)
+        public async Task<IActionResult> AddProductImagesToProduct([FromBody] ProductImageDTO productImagesDTO)
         {
-            var isAdded = _productImageService.AddProductImageToProduct(productImagesDTO);
+            var isAdded = await _productImageService.AddProductImageToProduct(productImagesDTO);
 
             if (!isAdded)
                 return NotFound();
@@ -33,9 +33,9 @@ namespace OnlineShopping.API.Controllers
         }
 
         [HttpDelete("{pid}")]
-        public IActionResult RemoveProductImagesFromProductByProductID(int pid)
+        public async Task<IActionResult> RemoveProductImagesFromProductByProductID(int pid)
         {
-            var isRemoved = _productImageService.RemoveProductImagesFromProductByProductID(pid);
+            var isRemoved = await _productImageService.RemoveProductImagesFromProductByProductID(pid);
 
             if (isRemoved == null)
                 return NotFound();

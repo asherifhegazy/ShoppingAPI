@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Services
 {
@@ -18,13 +19,13 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddProduct(ProductDTO productDTO)
+        public async Task<bool> AddProduct(ProductDTO productDTO)
         {
             if (productDTO != null)
             {
                 var product = SMapper.Map(productDTO);
-                var result = _unitOfWork.ProductRepository.Add(product);
-                _unitOfWork.SaveChanges();
+                var result = await _unitOfWork.ProductRepository.Add(product);
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }
@@ -82,7 +83,7 @@ namespace OnlineShopping.Services.Services
             return productsDTO;
         }
 
-        public bool RemoveProduct(int id)
+        public async Task<bool> RemoveProduct(int id)
         {
             var productDTO = GetProductByID(id);
             var product = SMapper.Map(productDTO);
@@ -90,7 +91,7 @@ namespace OnlineShopping.Services.Services
             if (product != null)
             {
                 var result = _unitOfWork.ProductRepository.Remove(product);
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }
@@ -104,17 +105,5 @@ namespace OnlineShopping.Services.Services
 
             return productDTO;
         }
-
-        //private ICollection<ProductDTO> AddProductImagesToProductDTOList(ICollection<ProductDTO> productsDTO)
-        //{
-        //    productsDTO.Select(p =>
-        //    {
-        //        p.Images = _unitOfWork.ProductImagesRepository.GetProductImagesURLsByProductID(p.Id);
-
-        //        return p;
-        //    });
-
-        //    return productsDTO;
-        //}
     }
 }

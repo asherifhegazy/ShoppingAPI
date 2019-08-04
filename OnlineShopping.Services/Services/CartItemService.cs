@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Services
 {
@@ -35,7 +36,7 @@ namespace OnlineShopping.Services.Services
             return _unitOfWork.CartItemRepository.GetCartItemByUserAndProductIDs(uid, pid);
         }
 
-        public bool AddCartItem(CartItemDTO cartItemDTO)
+        public async Task<bool> AddCartItem(CartItemDTO cartItemDTO)
         {
             if (cartItemDTO != null)
             {
@@ -45,7 +46,7 @@ namespace OnlineShopping.Services.Services
 
                 if (!IsCartItemExists(cartItemDTO.UserId, cartItemDTO.ProductId))
                 {
-                    result = _unitOfWork.CartItemRepository.Add(cartItem);
+                    result = await _unitOfWork.CartItemRepository.Add(cartItem);
                 }
                 else
                 {
@@ -55,7 +56,7 @@ namespace OnlineShopping.Services.Services
                     result = true;
                 }
 
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }
@@ -87,14 +88,14 @@ namespace OnlineShopping.Services.Services
             return cartItemsDTO;
         }
 
-        public bool Remove(CartItemDTO cartItemDTO)
+        public async Task<bool> Remove(CartItemDTO cartItemDTO)
         {
             var cartItem = _unitOfWork.CartItemRepository.GetCartItemByUserAndProductIDs(cartItemDTO.UserId, cartItemDTO.ProductId);
 
             if(cartItem != null)
             {
                 var result = _unitOfWork.CartItemRepository.Remove(cartItem);
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using OnlineShopping.Data;
 using OnlineShopping.Repositories.Interfaces;
 using OnlineShopping.Repositories.Repositories;
@@ -37,9 +38,9 @@ namespace OnlineShopping.Repositories.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        public void SaveChanges()
+        public async Task SaveChanges()
         {
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
     }
 }

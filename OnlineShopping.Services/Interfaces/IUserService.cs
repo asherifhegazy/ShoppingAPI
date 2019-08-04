@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Interfaces
 {
@@ -11,9 +12,9 @@ namespace OnlineShopping.Services.Interfaces
 
         UserDTO GetUserByID(int id);
 
-        bool AddUser(UserDTO userDTO);
+        Task<bool> AddUser(UserDTO userDTO);
 
-        bool RemoveUser(int id);
+        Task<bool> RemoveUser(int id);
 
         UserDTO GetUserByUsername(string username);
     }
