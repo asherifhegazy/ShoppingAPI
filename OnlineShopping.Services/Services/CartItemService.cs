@@ -93,7 +93,7 @@ namespace OnlineShopping.Services.Services
 
             if(cartItem != null)
             {
-                var result = RemoveCartItem(cartItem);
+                var result = _unitOfWork.CartItemRepository.Remove(cartItem);
                 _unitOfWork.SaveChanges();
 
                 return result;
@@ -101,18 +101,5 @@ namespace OnlineShopping.Services.Services
 
             return false;
         }
-
-        private bool RemoveCartItem(CartItem cartItem)
-        {
-            if (cartItem != null)
-            {
-                var result = _unitOfWork.CartItemRepository.Remove(cartItem);
-
-                return result;
-            }
-
-            return false;
-        }
-
     }
 }
