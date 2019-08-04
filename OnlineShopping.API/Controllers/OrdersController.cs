@@ -30,9 +30,7 @@ namespace OnlineShopping.API.Controllers
             if (!IsAdded)
                 return NotFound();
 
-            var result = _cartItemService.EmptyCartItemsByUserID(uid);
-
-            return new JsonResult(result);
+            return new JsonResult(IsAdded);
         }
 
         [HttpGet("{oid}")]

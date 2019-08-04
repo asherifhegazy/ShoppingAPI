@@ -56,28 +56,47 @@ namespace OnlineShopping.Services.Services
                 _unitOfWork.SaveChanges();
 
                 var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
-                    .Where(ci => ci.Product.Quantity > ci.Quantity);
+                    .Where(ci => ci.Product.Quantity >= ci.Quantity);
 
                 if (cartItems != null)
                 {
-                    var orderItems = SMapper.MapTypes(cartItems.ToList())
-                        .Select(oi =>
-                        {
-                            oi.OrderId = newOrder.Id;
-                            oi.Product.Quantity -= oi.Quantity;
+                    var isCartEmptied = EmptyCartItemsByUserID(cartItems);
 
-                            return oi;
-                        });
+                    if (isCartEmptied)
+                    {
+                        var orderItems = SMapper.MapTypes(cartItems.ToList())
+                            .Select(oi =>
+                            {
+                                oi.OrderId = newOrder.Id;
+                                oi.Product.Quantity -= oi.Quantity;
 
-                    result = _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
+                                return oi;
+                            });
 
-                    _unitOfWork.SaveChanges();
+                        result = _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
 
-                    return result;
+                        _unitOfWork.SaveChanges();
+
+                        return result;
+                    }
                 }
             }
 
             return false;
+        }
+
+        private bool EmptyCartItemsByUserID(IEnumerable<CartItem> cartItems)
+        {
+            List<bool> results = new List<bool>();
+
+            foreach (var item in cartItems)
+            {
+                var result = _unitOfWork.CartItemRepository.Remove(item);
+
+                results.Add(result);
+            }
+
+            return results.Any(r => r.Equals(true));
         }
 
 

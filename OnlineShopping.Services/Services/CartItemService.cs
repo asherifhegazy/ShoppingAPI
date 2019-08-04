@@ -102,28 +102,6 @@ namespace OnlineShopping.Services.Services
             return false;
         }
 
-        public bool EmptyCartItemsByUserID(int uid)
-        {
-            var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
-                .Where(ci => ci.Product.Quantity > ci.Quantity);
-
-            if(cartItems != null)
-            {
-                List<bool> results = new List<bool>(); 
-                foreach (var item in cartItems)
-                {
-                    var result = RemoveCartItem(item);
-                    results.Add(result);
-                }
-
-                _unitOfWork.SaveChanges();
-
-                return results.Any(r => r.Equals(true));
-            }
-
-            return false;
-        }
-
         private bool RemoveCartItem(CartItem cartItem)
         {
             if (cartItem != null)

@@ -72,16 +72,5 @@ namespace OnlineShopping.API.Controllers
 
             return new JsonResult(isDeleted);
         }
-
-        [HttpDelete("{uid}")]
-        public IActionResult EmptyCartItemsByUserID(int uid)
-        {
-            var isCleared = _cartItemService.EmptyCartItemsByUserID(uid);
-
-            if (!isCleared)
-                return NotFound();
-
-            return new JsonResult(isCleared);
-        }
     }
 }
