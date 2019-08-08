@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Repositories.UnitOfWork
 {
@@ -19,6 +20,6 @@ namespace OnlineShopping.Repositories.UnitOfWork
 
         IOrderItemRepository OrderItemRepository { get; set; }
 
-        void SaveChanges();
+        Task SaveChanges();
     }
 }

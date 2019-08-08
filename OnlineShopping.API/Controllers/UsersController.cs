@@ -58,9 +58,9 @@ namespace OnlineShopping.API.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public IActionResult AddUser([FromBody] UserDTO user)
+        public async Task<IActionResult> AddUser([FromBody] UserDTO user)
         {
-            var isAdded = _userService.AddUser(user);
+            var isAdded = await _userService.AddUser(user);
             
             if (!isAdded)
                 return NotFound();
@@ -70,9 +70,9 @@ namespace OnlineShopping.API.Controllers
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult RemoveUser(int id)
+        public async Task<IActionResult> RemoveUser(int id)
         {
-            var isDeleted = _userService.RemoveUser(id);
+            var isDeleted = await _userService.RemoveUser(id);
 
             if (!isDeleted)
                 return NotFound();

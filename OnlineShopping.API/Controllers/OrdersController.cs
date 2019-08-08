@@ -23,16 +23,14 @@ namespace OnlineShopping.API.Controllers
         }
 
         [HttpPost("{uid}")]
-        public IActionResult AddOrderByUserID(int uid)
+        public async Task<IActionResult> AddOrderByUserID(int uid)
         {
-            var IsAdded = _orderService.AddOrderByUserID(uid);
+            var IsAdded = await _orderService.AddOrderByUserID(uid);
 
             if (!IsAdded)
                 return NotFound();
 
-            var result = _cartItemService.EmptyCartItemsByUserID(uid);
-
-            return new JsonResult(result);
+            return new JsonResult(IsAdded);
         }
 
         [HttpGet("{oid}")]

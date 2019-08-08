@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Services
 {
@@ -19,65 +20,57 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddOrderByUserID(int uid, IEnumerable<OrderItemDTO> orderItemsDTO)
+        public async Task<bool> AddOrderByUserID(int uid)
         {
             var newOrder = new Order { UserId = uid };
-            var result = _unitOfWork.OrderRepository.Add(newOrder);
+            var result = await _unitOfWork.OrderRepository.Add(newOrder);
             if (result)
             {
                 // to have ID for newOrder
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
-                var orderItems = SMapper.Map(orderItemsDTO.ToList())
-                    .Select(oi =>
+                var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
+                    .Where(ci => ci.Product.Quantity >= ci.Quantity);
+
+                if (cartItems != null)
+                {
+                    var isCartEmptied = EmptyCartItemsByUserID(cartItems);
+
+                    if (isCartEmptied)
                     {
-                        oi.OrderId = newOrder.Id;
+                        var orderItems = SMapper.MapTypes(cartItems.ToList())
+                            .Select(oi =>
+                            {
+                                oi.OrderId = newOrder.Id;
+                                oi.Product.Quantity -= oi.Quantity;
 
-                        return oi;
-                    });
+                                return oi;
+                            });
 
-                result = _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
+                        result = await _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
 
-                _unitOfWork.SaveChanges();
+                        await _unitOfWork.SaveChanges();
 
-                return result;
+                        return result;
+                    }
+                }
             }
 
             return false;
         }
 
-        public bool AddOrderByUserID(int uid)
+        private bool EmptyCartItemsByUserID(IEnumerable<CartItem> cartItems)
         {
-            var newOrder = new Order { UserId = uid };
-            var result = _unitOfWork.OrderRepository.Add(newOrder);
-            if (result)
+            List<bool> results = new List<bool>();
+
+            foreach (var item in cartItems)
             {
-                // to have ID for newOrder
-                _unitOfWork.SaveChanges();
+                var result = _unitOfWork.CartItemRepository.Remove(item);
 
-                var cartItems = _unitOfWork.CartItemRepository.GetAllCartItemsByUserID(uid)
-                    .Where(ci => ci.Product.Quantity > ci.Quantity);
-
-                if (cartItems != null)
-                {
-                    var orderItems = SMapper.MapTypes(cartItems.ToList())
-                        .Select(oi =>
-                        {
-                            oi.OrderId = newOrder.Id;
-                            oi.Product.Quantity -= oi.Quantity;
-
-                            return oi;
-                        });
-
-                    result = _unitOfWork.OrderItemRepository.AddOrderItems(orderItems);
-
-                    _unitOfWork.SaveChanges();
-
-                    return result;
-                }
+                results.Add(result);
             }
 
-            return false;
+            return results.Any(r => r.Equals(true));
         }
 
 

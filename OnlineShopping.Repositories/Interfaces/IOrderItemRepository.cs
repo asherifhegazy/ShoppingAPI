@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Repositories.Interfaces
 {
     public interface IOrderItemRepository : IRepository<OrderItem>
     {
-        bool AddOrderItems(IEnumerable<OrderItem> orderItems);
+        Task<bool> AddOrderItems(IEnumerable<OrderItem> orderItems);
 
         IEnumerable<OrderItem> GetOrderItems(int oid);
     }

@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Interfaces
 {
     public interface IProductImageService
     {
-        bool AddProductImageToProduct(ProductImageDTO productImageDTO);
+        Task<bool> AddProductImageToProduct(ProductImageDTO productImageDTO);
 
-        List<bool> RemoveProductImagesFromProductByProductID(int pid);
+        Task<List<bool>> RemoveProductImagesFromProductByProductID(int pid);
     }
 }

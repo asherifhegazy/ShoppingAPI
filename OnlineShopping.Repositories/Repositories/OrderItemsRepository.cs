@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Repositories.Repositories
 {
@@ -23,11 +24,11 @@ namespace OnlineShopping.Repositories.Repositories
         {
         }
 
-        public bool AddOrderItems(IEnumerable<OrderItem> orderItems)
+        public async Task<bool> AddOrderItems(IEnumerable<OrderItem> orderItems)
         {
             if(orderItems != null)
             {
-                OnlineShoppingContext.AddRange(orderItems);
+                await OnlineShoppingContext.AddRangeAsync(orderItems);
 
                 return true;
             }

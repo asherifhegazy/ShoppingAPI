@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Interfaces
 {
@@ -11,11 +12,9 @@ namespace OnlineShopping.Services.Interfaces
 
         IEnumerable<CartItemDTO> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10);
 
-        bool AddCartItem(CartItemDTO cartItemDTO);
+        Task<bool> AddCartItem(CartItemDTO cartItemDTO);
 
-        bool Remove(CartItemDTO cartItemDTO);
-
-        bool EmptyCartItemsByUserID(int uid);
+        Task<bool> Remove(CartItemDTO cartItemDTO);
 
         int GetNumberOfCartItemsByUserID(int uid);
     }

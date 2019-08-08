@@ -48,18 +48,5 @@ namespace OnlineShopping.Repositories.Repositories
                 .Include(ci => ci.Product)
                 .SingleOrDefault(ci => ci.UserId == uid && ci.ProductId == pid);
         }
-
-        //public bool EmptyCartItems(IEnumerable<CartItem> cartItems)
-        //{
-        //    if(cartItems != null)
-        //    {
-        //        OnlineShoppingContext.RemoveRange(cartItems);
-
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
-
     }
 }

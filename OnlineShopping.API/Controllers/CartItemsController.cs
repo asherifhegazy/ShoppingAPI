@@ -52,9 +52,9 @@ namespace OnlineShopping.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCartItem([FromBody] CartItemDTO cartItemDTO)
+        public async Task<IActionResult> AddCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var isAdded = _cartItemService.AddCartItem(cartItemDTO);
+            var isAdded = await _cartItemService.AddCartItem(cartItemDTO);
 
             if (!isAdded)
                 return NotFound();
@@ -63,25 +63,14 @@ namespace OnlineShopping.API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult RemoveCartItem([FromBody] CartItemDTO cartItemDTO)
+        public async Task<IActionResult> RemoveCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var isDeleted = _cartItemService.Remove(cartItemDTO);
+            var isDeleted = await _cartItemService.Remove(cartItemDTO);
 
             if (!isDeleted)
                 return NotFound();
 
             return new JsonResult(isDeleted);
-        }
-
-        [HttpDelete("{uid}")]
-        public IActionResult EmptyCartItemsByUserID(int uid)
-        {
-            var isCleared = _cartItemService.EmptyCartItemsByUserID(uid);
-
-            if (!isCleared)
-                return NotFound();
-
-            return new JsonResult(isCleared);
         }
     }
 }

@@ -12,7 +12,5 @@ namespace OnlineShopping.Repositories.Interfaces
         IEnumerable<CartItem> GetCartItemsPagingByUserID(int uid, int pageIndex, int pageSize = 10);
 
         CartItem GetCartItemByUserAndProductIDs(int uid, int pid);
-
-        //bool EmptyCartItems(IEnumerable<CartItem> cartItemList);
     }
 }

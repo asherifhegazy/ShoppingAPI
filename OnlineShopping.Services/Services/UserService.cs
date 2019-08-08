@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopping.Services.Services
 {
@@ -18,13 +19,13 @@ namespace OnlineShopping.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool AddUser(UserDTO userDTO)
+        public async Task<bool> AddUser(UserDTO userDTO)
         {
             if (userDTO != null)
             {
                 var user = SMapper.Map(userDTO);
-                var result = _unitOfWork.UserRepository.Add(user);
-                _unitOfWork.SaveChanges();
+                var result = await _unitOfWork.UserRepository.Add(user);
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }
@@ -56,7 +57,7 @@ namespace OnlineShopping.Services.Services
             return userDTO;
         }
 
-        public bool RemoveUser(int id)
+        public async Task<bool> RemoveUser(int id)
         {
             var userDTO = GetUserByID(id);
             var user = SMapper.Map(userDTO);
@@ -64,7 +65,7 @@ namespace OnlineShopping.Services.Services
             if (user != null)
             {
                 var result = _unitOfWork.UserRepository.Remove(user);
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChanges();
 
                 return result;
             }

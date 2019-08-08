@@ -31,7 +31,7 @@ namespace OnlineShopping.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Data.OnlineShoppingContext>(o => o.UseSqlServer("Server=.;Database=OnlineShopping;Trusted_Connection=True;",
+            services.AddDbContext<Data.OnlineShoppingContext>(o => o.UseSqlServer("Server=tcp:eshopappahmed.database.windows.net,1433;Initial Catalog=eshopserviceahmed_db;Persist Security Info=False;User ID=ahmed;Password=User61559925#$;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
                 builder => builder.MigrationsAssembly(typeof(Startup).Assembly.FullName)));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
